@@ -53,35 +53,47 @@ let operate = function (firstNumber, secondNumber, operator) {
 //Create functions to populate display when number buttons are clicked
 //Should store 'display value' in variable to use in next step
 let display = document.querySelector('.display');
+let displayNew = document.createElement('div');
+displayNew = '';
 document.querySelector('[type="key1"]').addEventListener('click', function () {
-    display.innerHTML = 1;
+    displayNew += 1;
+    display.innerHTML = displayNew;
 });
 document.querySelector('[type="key2"]').addEventListener('click', function () {
-    display.innerHTML = 2;
+    displayNew += 2;
+    display.innerHTML = displayNew;
 });
 document.querySelector('[type="key3"]').addEventListener('click', function () {
-    display.innerHTML = 3;
+    displayNew += 3;
+    display.innerHTML = displayNew;
 });
 document.querySelector('[type="key4"]').addEventListener('click', function () {
-    display.innerHTML = 4;
+    displayNew += 4;
+    display.innerHTML = displayNew;
 });
 document.querySelector('[type="key5"]').addEventListener('click', function () {
-    display.innerHTML = 5;
+    displayNew += 5;
+    display.innerHTML = displayNew;
 });
 document.querySelector('[type="key6"]').addEventListener('click', function () {
-    display.innerHTML = 6;
+    displayNew += 6;
+    display.innerHTML = displayNew;
 });
 document.querySelector('[type="key7"]').addEventListener('click', function () {
-    display.innerHTML = 7;
+    displayNew += 7;
+    display.innerHTML = displayNew;
 });
 document.querySelector('[type="key8"]').addEventListener('click', function () {
-    display.innerHTML = 8;
+    displayNew += 8;
+    display.innerHTML = displayNew;
 });
 document.querySelector('[type="key9"]').addEventListener('click', function () {
-    display.innerHTML = 9;
+    displayNew += 9;
+    display.innerHTML = displayNew;
 });
 document.querySelector('[type="key0"]').addEventListener('click', function () {
-    display.innerHTML = 0;
+    displayNew += 10;
+    display.innerHTML = displayNew;
 });
 document.querySelector('[type="key+"]').addEventListener('click', function () {
     display.innerHTML = '+';
