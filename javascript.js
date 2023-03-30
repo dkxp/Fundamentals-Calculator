@@ -1,11 +1,15 @@
 //Add function
-let add = function (...numbers) {
-    return numbers.reduce((total, number) => total + number, 0);
+let add = function (firstNumber, secondNumber) {
+    let number1 = parseInt(firstNumber);
+    let number2 = parseInt(secondNumber);
+    return number1 + number2;
 };
 
 //Subtract function
-let subtract = function (...numbers) {
-    return numbers.reduce((total, number) => total + number, 0);
+let subtract = function (firstNumber, secondNumber) {
+    let number1 = parseInt(firstNumber);
+    let number2 = parseInt(secondNumber);
+    return number1 - number2;
 };
 
 //Multiply function
@@ -31,7 +35,6 @@ let operatorV;
 
 // Create operate function
 let operate = function (firstNumber, secondNumber, operator) {
-    operator = operator.toLowerCase();
     switch(operator) {
         case 'add':
             operator = add;
@@ -53,65 +56,78 @@ let operate = function (firstNumber, secondNumber, operator) {
 //Create functions to populate display when number buttons are clicked
 //Should store 'display value' in variable to use in next step
 let display = document.querySelector('.display');
-let displayNew = document.createElement('div');
-displayNew = '';
+let displayCurrentNumber = document.createElement('div');
+displayCurrentNumber = '';
+let previousNumber = 0;
+let currentOperator = '';
+
+
 document.querySelector('[type="key1"]').addEventListener('click', function () {
-    displayNew += 1;
-    display.innerHTML = displayNew;
+    displayCurrentNumber += 1;
+    display.innerHTML = displayCurrentNumber;
 });
 document.querySelector('[type="key2"]').addEventListener('click', function () {
-    displayNew += 2;
-    display.innerHTML = displayNew;
+    displayCurrentNumber += 2;
+    display.innerHTML = displayCurrentNumber;
 });
 document.querySelector('[type="key3"]').addEventListener('click', function () {
-    displayNew += 3;
-    display.innerHTML = displayNew;
+    displayCurrentNumber += 3;
+    display.innerHTML = displayCurrentNumber;
 });
 document.querySelector('[type="key4"]').addEventListener('click', function () {
-    displayNew += 4;
-    display.innerHTML = displayNew;
+    displayCurrentNumber += 4;
+    display.innerHTML = displayCurrentNumber;
 });
 document.querySelector('[type="key5"]').addEventListener('click', function () {
-    displayNew += 5;
-    display.innerHTML = displayNew;
+    displayCurrentNumber += 5;
+    display.innerHTML = displayCurrentNumber;
 });
 document.querySelector('[type="key6"]').addEventListener('click', function () {
-    displayNew += 6;
-    display.innerHTML = displayNew;
+    displayCurrentNumber += 6;
+    display.innerHTML = displayCurrentNumber;
 });
 document.querySelector('[type="key7"]').addEventListener('click', function () {
-    displayNew += 7;
-    display.innerHTML = displayNew;
+    displayCurrentNumber += 7;
+    display.innerHTML = displayCurrentNumber;
 });
 document.querySelector('[type="key8"]').addEventListener('click', function () {
-    displayNew += 8;
-    display.innerHTML = displayNew;
+    displayCurrentNumber += 8;
+    display.innerHTML = displayCurrentNumber;
 });
 document.querySelector('[type="key9"]').addEventListener('click', function () {
-    displayNew += 9;
-    display.innerHTML = displayNew;
+    displayCurrentNumber += 9;
+    display.innerHTML = displayCurrentNumber;
 });
 document.querySelector('[type="key0"]').addEventListener('click', function () {
-    displayNew += 10;
-    display.innerHTML = displayNew;
+    displayCurrentNumber += 0;
+    display.innerHTML = displayCurrentNumber;
 });
 document.querySelector('[type="key+"]').addEventListener('click', function () {
-    display.innerHTML = '+';
+    previousNumber += parseInt(displayCurrentNumber);
+    displayCurrentNumber = '';
+    currentOperator = 'add';
 });
 document.querySelector('[type="key-"]').addEventListener('click', function () {
-    display.innerHTML = '-';
+    previousNumber -= parseInt(displayCurrentNumber);
+    displayCurrentNumber = '';
+    currentOperator = 'subtract';
 });
 document.querySelector('[type="key%"]').addEventListener('click', function () {
-    display.innerHTML = '%';
+    previousNumber = parseInt(displayCurrentNumber);
+    displayCurrentNumber = '';
 });
 document.querySelector('[type="key*"]').addEventListener('click', function () {
-    display.innerHTML = '*';
+    operand1 = parseInt(displayCurrentNumber);
+    displayCurrentNumber = '';
 });
 document.querySelector('[type="key="]').addEventListener('click', function () {
-    display.innerHTML = '=';
+    displayCurrentNumber = operate (previousNumber, displayCurrentNumber, currentOperator)
+    display.innerHTML = displayCurrentNumber;
+    previousNumber = 0;
 });
 document.querySelector('[type="key."]').addEventListener('click', function () {
-    display.innerHTML = '.';
+    operand1 = parseInt(displayCurrentNumber);
+    displayCurrentNumber = '';
 });
 
 
