@@ -56,78 +56,71 @@ let operate = function (firstNumber, secondNumber, operator) {
 //Create functions to populate display when number buttons are clicked
 //Should store 'display value' in variable to use in next step
 let display = document.querySelector('.display');
-let displayCurrentNumber = document.createElement('div');
-displayCurrentNumber = '';
-let previousNumber = 0;
+let displayNumber = document.createElement('div');
+displayNumber = '';
+let storedNumber = 0;
 let currentOperator = '';
+let previousCalculationSumOnDisplay = false;
+/* let isStoredNumberUndefined = true; */
 
+let numbersArray = [];
+numbersArray[0] = document.querySelector('[type="key0"]');
+numbersArray[1] = document.querySelector('[type="key1"]');
+numbersArray[2] = document.querySelector('[type="key2"]');
+numbersArray[3] = document.querySelector('[type="key3"]');
+numbersArray[4] = document.querySelector('[type="key4"]');
+numbersArray[5] = document.querySelector('[type="key5"]');
+numbersArray[6] = document.querySelector('[type="key6"]');
+numbersArray[7] = document.querySelector('[type="key7"]');
+numbersArray[8] = document.querySelector('[type="key8"]');
+numbersArray[9] = document.querySelector('[type="key9"]');
 
-document.querySelector('[type="key1"]').addEventListener('click', function () {
-    displayCurrentNumber += 1;
-    display.innerHTML = displayCurrentNumber;
-});
-document.querySelector('[type="key2"]').addEventListener('click', function () {
-    displayCurrentNumber += 2;
-    display.innerHTML = displayCurrentNumber;
-});
-document.querySelector('[type="key3"]').addEventListener('click', function () {
-    displayCurrentNumber += 3;
-    display.innerHTML = displayCurrentNumber;
-});
-document.querySelector('[type="key4"]').addEventListener('click', function () {
-    displayCurrentNumber += 4;
-    display.innerHTML = displayCurrentNumber;
-});
-document.querySelector('[type="key5"]').addEventListener('click', function () {
-    displayCurrentNumber += 5;
-    display.innerHTML = displayCurrentNumber;
-});
-document.querySelector('[type="key6"]').addEventListener('click', function () {
-    displayCurrentNumber += 6;
-    display.innerHTML = displayCurrentNumber;
-});
-document.querySelector('[type="key7"]').addEventListener('click', function () {
-    displayCurrentNumber += 7;
-    display.innerHTML = displayCurrentNumber;
-});
-document.querySelector('[type="key8"]').addEventListener('click', function () {
-    displayCurrentNumber += 8;
-    display.innerHTML = displayCurrentNumber;
-});
-document.querySelector('[type="key9"]').addEventListener('click', function () {
-    displayCurrentNumber += 9;
-    display.innerHTML = displayCurrentNumber;
-});
-document.querySelector('[type="key0"]').addEventListener('click', function () {
-    displayCurrentNumber += 0;
-    display.innerHTML = displayCurrentNumber;
-});
+for (let i = 0; i < numbersArray.length; i++) {
+    numbersArray[i].addEventListener('click', function () {
+        displayNumber += i;
+        display.innerHTML = displayNumber;
+        
+    })
+}
+
 document.querySelector('[type="key+"]').addEventListener('click', function () {
-    previousNumber += parseInt(displayCurrentNumber);
-    displayCurrentNumber = '';
+    storedNumber += parseInt(displayNumber);
+    displayNumber = '';
     currentOperator = 'add';
 });
 document.querySelector('[type="key-"]').addEventListener('click', function () {
-    previousNumber -= parseInt(displayCurrentNumber);
-    displayCurrentNumber = '';
-    currentOperator = 'subtract';
+    /* if (isStoredNumberUndefined === true) {
+        storedNumber = parseInt(currentNumber);
+        currentNumber = '';
+        currentOperator = 'subtract';
+        isStoredNumberUndefined = false;
+    } else {
+        storedNumber -= parseInt(currentNumber);
+        currentNumber = '';
+        currentOperator = 'subtract';} */
 });
 document.querySelector('[type="key%"]').addEventListener('click', function () {
-    previousNumber = parseInt(displayCurrentNumber);
-    displayCurrentNumber = '';
+    /* storedNumber = parseInt(displayCurrentNumber);
+    isStoredNumberUndefined = false;
+    displayCurrentNumber = ''; */
+    
 });
 document.querySelector('[type="key*"]').addEventListener('click', function () {
-    operand1 = parseInt(displayCurrentNumber);
-    displayCurrentNumber = '';
+    /* storedNumber = parseInt(displayCurrentNumber);
+    isStoredNumberUndefined = false;
+    displayCurrentNumber = ''; */
 });
 document.querySelector('[type="key="]').addEventListener('click', function () {
-    displayCurrentNumber = operate (previousNumber, displayCurrentNumber, currentOperator)
-    display.innerHTML = displayCurrentNumber;
-    previousNumber = 0;
+    displayNumber = operate (storedNumber, displayNumber, currentOperator)
+    display.innerHTML = displayNumber;
+    storedNumber = 0;
+    previousCalculationSumOnDisplay = true;
+  
+    
 });
 document.querySelector('[type="key."]').addEventListener('click', function () {
-    operand1 = parseInt(displayCurrentNumber);
-    displayCurrentNumber = '';
+    operand1 = parseInt(displayNumber);
+    displayNumber = '';
 });
 
 
