@@ -43,18 +43,12 @@ let display = document.querySelector('.display');
 let displayZero = 0;
 let displayValue = '';
 let buttonDigitsArray = [];
-buttonDigitsArray[0] = document.querySelector('[type="0"]');
-buttonDigitsArray[1] = document.querySelector('[type="1"]');
-buttonDigitsArray[2] = document.querySelector('[type="2"]');
-buttonDigitsArray[3] = document.querySelector('[type="3"]');
-buttonDigitsArray[4] = document.querySelector('[type="4"]');
-buttonDigitsArray[5] = document.querySelector('[type="5"]');
-buttonDigitsArray[6] = document.querySelector('[type="6"]');
-buttonDigitsArray[7] = document.querySelector('[type="7"]');
-buttonDigitsArray[8] = document.querySelector('[type="8"]');
-buttonDigitsArray[9] = document.querySelector('[type="9"]');
 
-for (let i = 0; i < buttonDigitsArray.length; i++) {
+for (let i = 0; i <= 9; i++) {
+    buttonDigitsArray[i] = document.querySelector(`[type="${i}"]`);
+};
+
+for (let i = 1; i < buttonDigitsArray.length; i++) {
     buttonDigitsArray[i].addEventListener('click', function () {
         displayValue += i;
         display.innerHTML = displayValue;
@@ -64,6 +58,21 @@ for (let i = 0; i < buttonDigitsArray.length; i++) {
         document.querySelector('[type="%"]').disabled = false;
     })
 };
+
+buttonDigitsArray[0].addEventListener('click', function () {
+    if (displayValue !== '') {
+        displayValue += '0';
+        display.innerHTML = displayValue;
+        document.querySelector('[type="+"]').disabled = false;
+        document.querySelector('[type="-"]').disabled = false;
+        document.querySelector('[type="*"]').disabled = false;
+        document.querySelector('[type="%"]').disabled = false;
+    }
+    document.querySelector('[type="+"]').disabled = false;
+    document.querySelector('[type="-"]').disabled = false;
+    document.querySelector('[type="*"]').disabled = false;
+    document.querySelector('[type="%"]').disabled = false;
+})
 
 //Operator Buttons
 
@@ -107,7 +116,13 @@ divideButton.addEventListener('click', function () {
     document.querySelector('[type="%"]').disabled = true;
 });
 
+// Compute Total
 let computeButton = document.querySelector('[type="="]');
 computeButton.addEventListener('click', function () {
+    numberChain.innerHTML += displayValue;
+    console.log(numberChain.innerHTML);
+    let uncomputedValueArray = numberChain.innerHTML.split(' ');
+    console.log(uncomputedValueArray);
+});
 
-})
+
