@@ -24,9 +24,7 @@ let operate = function (a, b, operator) {
     };
 };
 
-// Basic HTML Calc (Done)
-
-// Create functions to populate calc display when numbers pressed
+// Global Variables
 
 let numberChain = document.querySelector('.displayHistory');
 let display = document.querySelector('.display');
@@ -39,7 +37,7 @@ for (let i = 0; i <= 9; i++) {
     buttonDigitsArray[i] = document.querySelector(`[type="${i}"]`);
 };
 
-// Number clicks
+// 1-9 Buttons
 for (let i = 1; i < buttonDigitsArray.length; i++) {
     buttonDigitsArray[i].addEventListener('click', function () {
         console.log(isNumber1Empty + 'value of isItCleared');
@@ -59,18 +57,17 @@ for (let i = 1; i < buttonDigitsArray.length; i++) {
             display.innerHTML = number1;
             number2 += i;
         };
+    document.querySelector('[type="+"]').disabled = false;
+    document.querySelector('[type="-"]').disabled = false;
+    document.querySelector('[type="*"]').disabled = false;
+    document.querySelector('[type="%"]').disabled = false;
 
-        console.log(number1 + ` is number 1 on button ${i} click`);
-        console.log(number2 + ` is number 2 on button ${i} click`);
-        console.log(displayValue + ` is displayValue on button ${i} click`);
-        console.log(display.innerHTML + ` is display.innerHTML on ${i} button click`);
-        console.log(operator + ` is operator`);
-        console.log('                         ');
-
-        document.querySelector('[type="+"]').disabled = false;
-        document.querySelector('[type="-"]').disabled = false;
-        document.querySelector('[type="*"]').disabled = false;
-        document.querySelector('[type="%"]').disabled = false;
+    console.log(number1 + ` is number 1 on button ${i} click`);
+    console.log(number2 + ` is number 2 on button ${i} click`);
+    console.log(displayValue + ` is displayValue on button ${i} click`);
+    console.log(display.innerHTML + ` is display.innerHTML on ${i} button click`);
+    console.log(operator + ` is operator`);
+    console.log('                         ');
     });
 };
 
@@ -87,7 +84,6 @@ buttonDigitsArray[0].addEventListener('click', function () {
             number2 += 0;
         };
     };
-
     document.querySelector('[type="+"]').disabled = false;
     document.querySelector('[type="-"]').disabled = false;
     document.querySelector('[type="*"]').disabled = false;
@@ -101,7 +97,7 @@ buttonDigitsArray[0].addEventListener('click', function () {
     console.log('                         ');
 });
 
-//Operator Buttons
+// Operator Buttons
 
 // Plus Button
 let plusButton = document.querySelector('[type="+"]');
@@ -120,7 +116,6 @@ plusButton.addEventListener('click', function () {
     };
     operator = add;
     displayValue = 0;
-
     document.querySelector('[type="+"]').disabled = true;
     document.querySelector('[type="-"]').disabled = false;
     document.querySelector('[type="*"]').disabled = false;
@@ -153,13 +148,12 @@ subtractButton.addEventListener('click', function () {
     };
     operator = subtract;
     displayValue = 0;   
-
-    console.log(isNumber1Empty + 'value of isItCleared');
     document.querySelector('[type="-"]').disabled = true;
     document.querySelector('[type="+"]').disabled = false;
     document.querySelector('[type="*"]').disabled = false;
     document.querySelector('[type="%"]').disabled = false;
     
+    console.log(isNumber1Empty + 'value of isItCleared');
     console.log(number1 + ` is number 1 on button - click`);
     console.log(number2 + ` is number 2 on button - click`);
     console.log(displayValue + ` is displayValue on - button click`);
@@ -180,18 +174,15 @@ multiplyButton.addEventListener('click', function () {
         number2 = '';
         displayValue = '';
     };
-    // Store displayValue into number1
     if (number1 === undefined) {
         number1 = displayValue;
     };
-    /* numberChain.innerHTML = numberChain.innerHTML + displayValue + ' * '; */
     displayValue = 0;
+    operator = multiply;
     document.querySelector('[type="*"]').disabled = true;
     document.querySelector('[type="+"]').disabled = false;
     document.querySelector('[type="-"]').disabled = false;
     document.querySelector('[type="%"]').disabled = false;
-    
-    operator = multiply;
 
     console.log(isNumber1Empty + 'value of isItCleared');
     console.log(number1 + ` is number 1 on button * click`);
@@ -200,7 +191,6 @@ multiplyButton.addEventListener('click', function () {
     console.log(display.innerHTML + ` is display.innerHTML on * button click`);
     console.log(operator + ` is operator`);
     console.log('                         ');
-
 });
 
 // Divide Button
@@ -215,15 +205,11 @@ divideButton.addEventListener('click', function () {
         number2 = '';
         displayValue = '';
     };
-
     if (number1 === undefined) {
         number1 = displayValue;
     };
-
     operator = divide;
     displayValue = 0;
-
-
     document.querySelector('[type="%"]').disabled = true;
     document.querySelector('[type="+"]').disabled = false;
     document.querySelector('[type="-"]').disabled = false;
@@ -238,13 +224,12 @@ divideButton.addEventListener('click', function () {
     console.log('                         ');
 });
 
-// Compute Total
+// Compute Button
 let computeButton = document.querySelector('[type="="]');
 computeButton.addEventListener('click', function () {
     if (number1 === undefined) {
         number1 = displayValue;
     };
-
     if (number1 !== undefined && number2.length !== 0) {
         number1 = operate (number1, number2, operator);
         display.innerHTML = number1;
@@ -252,7 +237,6 @@ computeButton.addEventListener('click', function () {
         displayValue = number1;
         isNumber1Empty = true;
     };
-
     operator = undefined;
 
     console.log(isNumber1Empty + 'value of isItCleared');
@@ -264,7 +248,7 @@ computeButton.addEventListener('click', function () {
     console.log('                         ');
 });
 
-// Clear button TODO:
+// Clear button
 let clearButton = document.querySelector('[type="clear"]');
 clearButton.addEventListener('click', function () {
     isNumber1Empty = true;
@@ -273,7 +257,7 @@ clearButton.addEventListener('click', function () {
     number1 = undefined;
     number2 = '';
     operator = undefined;
-    
+
     console.log(isNumber1Empty + 'value of isItCleared');
     console.log(number1 + ` is number 1 on button = click`);
     console.log(number2 + ` is number 2 on button = click`);
@@ -283,3 +267,8 @@ clearButton.addEventListener('click', function () {
     console.log('                         ');
 })
 
+// Decimal Button
+/* let decimalButton = document.querySelector('[type="."]');
+decimalButton.addEventListener(function () {
+
+}); */
