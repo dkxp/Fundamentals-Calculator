@@ -122,8 +122,21 @@ plusButton.addEventListener('click', function () {
 // Minus Button
 let subtractButton = document.querySelector('[type="-"]');
 subtractButton.addEventListener('click', function () {
-    numberChain.innerHTML = numberChain.innerHTML + displayValue + ' - ';
+    if (number1 === undefined) {
+        number1 = displayValue;
+    };
+
+    if (number1 !== undefined && number2.length !== 0) {
+        number1 = operate (number1, number2, operator);
+        display.innerHTML = number1;
+        number2 = '';
+        displayValue = '';
+    };
+
     displayValue = 0;   
+
+    operator = subtract;
+
     document.querySelector('[type="-"]').disabled = true;
     document.querySelector('[type="+"]').disabled = false;
     document.querySelector('[type="*"]').disabled = false;
@@ -169,7 +182,21 @@ multiplyButton.addEventListener('click', function () {
 // Divide Button
 let divideButton = document.querySelector('[type="%"]');
 divideButton.addEventListener('click', function () {
+    if (number1 === undefined) {
+        number1 = displayValue;
+    };
+
+    if (number1 !== undefined && number2.length !== 0) {
+        number1 = operate (number1, number2, operator);
+        display.innerHTML = number1;
+        number2 = '';
+        displayValue = '';
+    };
+
     displayValue = 0;
+
+    operator = divide;
+
     document.querySelector('[type="%"]').disabled = true;
     document.querySelector('[type="+"]').disabled = false;
     document.querySelector('[type="-"]').disabled = false;
@@ -185,9 +212,35 @@ divideButton.addEventListener('click', function () {
 // Compute Total
 let computeButton = document.querySelector('[type="="]');
 computeButton.addEventListener('click', function () {
-    
+    if (number1 === undefined) {
+        number1 = displayValue;
+    };
+
+    if (number1 !== undefined && number2.length !== 0) {
+        number1 = operate (number1, number2, operator);
+        display.innerHTML = number1;
+        number2 = '';
+        displayValue = '';
+    };
+
+    operator = undefined;
+
+    console.log(number1 + ` is number 1 on button = click`);
+    console.log(number2 + ` is number 2 on button = click`);
+    console.log(displayValue + ` is displayValue on = button click`);
+    console.log(display.innerHTML + ` is display.innerHTML on = button click`);
+    console.log(operator + ` is operator`);
 });
 
 // Clear button TODO:
+let clearButton = document.querySelector('[type="clear"]');
+clearButton.addEventListener('click', function () {
+    isItCleared = true;
+    display.innerHTML = 0;
+    displayValue = '';
+    number1 = undefined;
+    number2 = '';
+    operator = undefined;
+})
 // number1Exists set to false!
 
