@@ -33,7 +33,6 @@ let display = document.querySelector('.display');
 let displayValue = '';
 let buttonDigitsArray = [];
 let isItCleared = true;
-let noPreviousTotal = true;
 display.innerHTML = 0;
 
 for (let i = 0; i <= 9; i++) {
@@ -43,12 +42,6 @@ for (let i = 0; i <= 9; i++) {
 // Number clicks
 for (let i = 1; i < buttonDigitsArray.length; i++) {
     buttonDigitsArray[i].addEventListener('click', function () {
-        if (noPreviousTotal === false) {
-            number1 = undefined;
-            noPreviousTotal = true;
-        } 
-
-
         isItCleared = false;
         if (number1 === undefined) {
             displayValue += i;
@@ -65,7 +58,7 @@ for (let i = 1; i < buttonDigitsArray.length; i++) {
         console.log(displayValue + ` is displayValue on button ${i} click`);
         console.log(display.innerHTML + ` is display.innerHTML on ${i} button click`);
         console.log(operator + ` is operator`);
-        console.log('                                 ');
+        console.log('                         ');
 
         document.querySelector('[type="+"]').disabled = false;
         document.querySelector('[type="-"]').disabled = false;
@@ -91,13 +84,13 @@ buttonDigitsArray[0].addEventListener('click', function () {
     document.querySelector('[type="-"]').disabled = false;
     document.querySelector('[type="*"]').disabled = false;
     document.querySelector('[type="%"]').disabled = false;
-    console.log('                                 ');
 
     console.log(number1 + ` is number 1 on button 0 click`);
     console.log(number2 + ` is number 2 on button 0 click`);
     console.log(displayValue + ` is displayValue on 0 button click`);
     console.log(display.innerHTML + ` is display.innerHTML on 0 button click`);
     console.log(operator + ` is operator`);
+    console.log('                         ');
 });
 
 //Operator Buttons
@@ -126,7 +119,7 @@ plusButton.addEventListener('click', function () {
     console.log(displayValue + ` is displayValue on + button click`);
     console.log(display.innerHTML + ` is display.innerHTML on + button click`);
     console.log(operator + ` is operator`);
-    console.log('                                 ');
+    console.log('                         ');
 });
 
 // Minus Button
@@ -157,7 +150,7 @@ subtractButton.addEventListener('click', function () {
     console.log(displayValue + ` is displayValue on - button click`);
     console.log(display.innerHTML + ` is display.innerHTML on - button click`);
     console.log(operator + ` is operator`);
-    console.log('                                 ');
+    console.log('                         ');
 });
 
 // Multiply Button
@@ -187,7 +180,7 @@ multiplyButton.addEventListener('click', function () {
     console.log(displayValue + ` is displayValue on * button click`);
     console.log(display.innerHTML + ` is display.innerHTML on * button click`);
     console.log(operator + ` is operator`);
-    console.log('                                 ');
+    console.log('                         ');
 
 });
 
@@ -219,7 +212,7 @@ divideButton.addEventListener('click', function () {
     console.log(displayValue + ` is displayValue on % button click`);
     console.log(display.innerHTML + ` is display.innerHTML on % button click`);
     console.log(operator + ` is operator`);
-    console.log('                                 ');
+    console.log('                         ');
 });
 
 // Compute Total
@@ -238,14 +231,12 @@ computeButton.addEventListener('click', function () {
 
     operator = undefined;
 
-    noPreviousTotal = false;
-
     console.log(number1 + ` is number 1 on button = click`);
     console.log(number2 + ` is number 2 on button = click`);
     console.log(displayValue + ` is displayValue on = button click`);
     console.log(display.innerHTML + ` is display.innerHTML on = button click`);
     console.log(operator + ` is operator`);
-    console.log('                                 ');
+    console.log('                         ');
 });
 
 // Clear button TODO:
