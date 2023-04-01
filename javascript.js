@@ -16,22 +16,8 @@ let number2;
 let operator;
 
 // Operate function
-let operate = function (op, a, b) {
-    switch (op) {
-        case '+':
-            op = add;
-            break;
-        case '-': 
-            op = subtract;
-            break;
-        case '*':
-            op = multiply;
-            break;
-        case '/':
-            op = divide;
-            break;
-    }
-    return op (parseInt(a), parseInt(b));
+let operate = function (a, b, operator) {
+    return operator (parseInt(a), parseInt(b));
 };
 
 // Basic HTML Calc (Done)
@@ -40,9 +26,13 @@ let operate = function (op, a, b) {
 // **Note: should be storing 'display value' in variable, for future use
 let numberChain = document.querySelector('.displayHistory');
 let display = document.querySelector('.display');
-let displayZero = 0;
 let displayValue = '';
+let displayValueInt = 0;
 let buttonDigitsArray = [];
+// ***MIGHT NEED TO MAKE THIS BOOLEAN THE SAME FOR DIVISION, NOT SURE***
+let nextNumberIsMultiplied = false;
+
+
 
 for (let i = 0; i <= 9; i++) {
     buttonDigitsArray[i] = document.querySelector(`[type="${i}"]`);
@@ -51,6 +41,7 @@ for (let i = 0; i <= 9; i++) {
 for (let i = 1; i < buttonDigitsArray.length; i++) {
     buttonDigitsArray[i].addEventListener('click', function () {
         displayValue += i;
+
         display.innerHTML = displayValue;
         document.querySelector('[type="+"]').disabled = false;
         document.querySelector('[type="-"]').disabled = false;
@@ -72,7 +63,7 @@ buttonDigitsArray[0].addEventListener('click', function () {
     document.querySelector('[type="-"]').disabled = false;
     document.querySelector('[type="*"]').disabled = false;
     document.querySelector('[type="%"]').disabled = false;
-})
+});
 
 //Operator Buttons
 
@@ -98,17 +89,38 @@ subtractButton.addEventListener('click', function () {
 
 let multiplyButton = document.querySelector('[type="*"]');
 multiplyButton.addEventListener('click', function () {
-    numberChain.innerHTML = numberChain.innerHTML + displayValue + ' * ';
+    // *** NEED TO REMOVE PREVIOUS NUMBER STORED IN numberCHAIN (i.e 2 + 3 + 5 * 2 needs
+    // to show as 2 + 3 + 10) !!! Remember to implement this on division as well.
+    // ^^ Consider an array instead of string chain? Which is easier to remove previous 
+    // **Can keep numberchain to show on upper display BUT need to create an element to store
+    // **every element, so that when * or % is pressed, the last element is removed! VERY IMPORTANT!
+
+    // Store displayValue into number1
+    if (nextNumberIsMultiplied === false) {
+        number1 = displayValue;
+    }
+    // Change operator value
+    operator = multiply
+    if (nextNumberIsMultiplied === true) {
+        number2 = displayValue;
+        number1 = operate (number1, number2, multiply);
+        nextNumberIsMultiplied === false;
+
+        console.log(number1);
+    }
+    /* numberChain.innerHTML = numberChain.innerHTML + displayValue + ' * '; */
     displayValue = '';
     document.querySelector('[type="+"]').disabled = true;
     document.querySelector('[type="-"]').disabled = true;
     document.querySelector('[type="*"]').disabled = true;
     document.querySelector('[type="%"]').disabled = true;
+    nextNumberIsMultiplied = true;
 });
 
 let divideButton = document.querySelector('[type="%"]');
 divideButton.addEventListener('click', function () {
-    numberChain.innerHTML = numberChain.innerHTML + displayValue + ' % ';
+    // Divide the previous number with the next number and store into array!
+    /* numberChain.innerHTML = numberChain.innerHTML + displayValue + ' % '; */
     displayValue = '';
     document.querySelector('[type="+"]').disabled = true;
     document.querySelector('[type="-"]').disabled = true;
@@ -123,6 +135,7 @@ computeButton.addEventListener('click', function () {
     console.log(numberChain.innerHTML);
     let uncomputedValueArray = numberChain.innerHTML.split(' ');
     console.log(uncomputedValueArray);
+    
 });
 
 
