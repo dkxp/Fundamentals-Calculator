@@ -33,23 +33,25 @@ let display = document.querySelector('.display');
 let displayValue = '';
 let buttonDigitsArray = [];
 let isItCleared = true;
+display.innerHTML = 0;
 
 for (let i = 0; i <= 9; i++) {
     buttonDigitsArray[i] = document.querySelector(`[type="${i}"]`);
 };
 
 // Number clicks
-for (let i = 0; i < buttonDigitsArray.length; i++) {
+for (let i = 1; i < buttonDigitsArray.length; i++) {
     buttonDigitsArray[i].addEventListener('click', function () {
-        
+        isItCleared = false;
         if (number1 === undefined) {
             displayValue += i;
             display.innerHTML = displayValue;
         };
+
         if (number1 !== undefined) {
             display.innerHTML = number1;
             number2 += i;
-        }
+        };
 
         console.log(number1 + ` is number 1 on button ${i} click`);
         console.log(number2 + ` is number 2 on button ${i} click`);
@@ -64,13 +66,19 @@ for (let i = 0; i < buttonDigitsArray.length; i++) {
     });
 };
 
-buttonDigitsArray[0].addEventListener('click', function () {
-    if (displayValue.length === 0){
-        display.innerHTML = 0;
-        displayValue = 0;
+buttonDigitsArray[0].addEventListener('click', function () {   
+    if (isItCleared === false) {
+        if (number1 === undefined) {
+            displayValue += 0;
+            display.innerHTML = displayValue;
+        };
+
+        if (number1 !== undefined) {
+            display.innerHTML = number1;
+            number2 += 0;
+        }
     };
-    displayValue += 0;
-    display.innerHTML = number1;
+
     document.querySelector('[type="+"]').disabled = false;
     document.querySelector('[type="-"]').disabled = false;
     document.querySelector('[type="*"]').disabled = false;
