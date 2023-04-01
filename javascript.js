@@ -20,7 +20,7 @@ let operate = function (a, b, operator) {
     if (number2.length === 0) {
         return (parseInt(a, 10));
     } else {
-        return operator (parseInt(a, 10), parseInt(b, 10));
+        return operator (parseFloat(a, 10), parseFloat(b, 10));
     };
 };
 
