@@ -67,6 +67,7 @@ for (let i = 1; i < buttonDigitsArray.length; i++) {
     });
 };
 
+// 0 Button
 buttonDigitsArray[0].addEventListener('click', function () {   
     if (isItCleared === false) {
         if (number1 === undefined) {
@@ -226,7 +227,8 @@ computeButton.addEventListener('click', function () {
         number1 = operate (number1, number2, operator);
         display.innerHTML = number1;
         number2 = '';
-        displayValue = '';
+        displayValue = number1;
+        isItCleared = true;
     };
 
     operator = undefined;
@@ -249,4 +251,4 @@ clearButton.addEventListener('click', function () {
     number2 = '';
     operator = undefined;
 })
-// number1Exists set to false!
+
