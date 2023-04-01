@@ -14,10 +14,10 @@ let divide = (a, b) => a / b;
 let number1;
 let number2 = '';
 let operator;
+let operatorAfterComputing;
 
 // Operate function
 let operate = function (a, b, operator) {
-    
     return operator (parseInt(a, 10), parseInt(b, 10));
     
 };
@@ -32,6 +32,7 @@ let displayValue = '';
 let buttonDigitsArray = [];
 let emptyValues = true;
 let lastInputWasEqual = false;
+let lastInputWasEqual2 = false;
 display.innerHTML = 0;
 
 for (let i = 0; i <= 9; i++) {
@@ -40,7 +41,12 @@ for (let i = 0; i <= 9; i++) {
 
 // Callback functions for number buttons?
 let operatorFunctions = function () {
+    
     if (number1 !== undefined && number2.length !== 0) {
+        if (lastInputWasEqual2 === true) {
+            operate = operatorAfterComputing;
+            lastInputWasEqual2 = false;
+        };
         number1 = operate (number1, number2, operator);
         number2 = '';
         displayValue = number1;
@@ -98,13 +104,14 @@ for (let i = 1; i < buttonDigitsArray.length; i++) {
 buttonDigitsArray[0].addEventListener('click', function () {   
     if (emptyValues === false) {
         if (number1 === undefined) {
-            displayValue += 0;
+            displayValue += '0';
             display.innerHTML = displayValue;
         };
 
         if (number1 !== undefined) {
-            display.innerHTML = number1;
-            number2 += 0;
+            displayValue += '0'
+            display.innerHTML = displayValue;
+            number2 += '0';
         }
     };
 
@@ -125,8 +132,9 @@ buttonDigitsArray[0].addEventListener('click', function () {
 // Plus Button
 let plusButton = document.querySelector('[type="+"]');
 plusButton.addEventListener('click', function () {
-    lastInputWasEqual = false;
+    operatorAfterComputing = add;
     operatorFunctions();
+    lastInputWasEqual2 = false;
     
     operator = add;
 
@@ -140,7 +148,8 @@ plusButton.addEventListener('click', function () {
 // Minus Button
 let subtractButton = document.querySelector('[type="-"]');
 subtractButton.addEventListener('click', function () {
-    lastInputWasEqual = false;
+    operatorAfterComputing = subtract;
+    lastInputWasEqual2 = false;
     operatorFunctions()   
 
     operator = subtract;
@@ -155,7 +164,8 @@ subtractButton.addEventListener('click', function () {
 // Multiply Button
 let multiplyButton = document.querySelector('[type="*"]');
 multiplyButton.addEventListener('click', function () {
-    lastInputWasEqual = false;
+    operatorAfterComputing = multiply;
+    lastInputWasEqual2 = false;
     operatorFunctions()
     
     operator = multiply;
@@ -171,7 +181,8 @@ multiplyButton.addEventListener('click', function () {
 // Divide Button
 let divideButton = document.querySelector('[type="%"]');
 divideButton.addEventListener('click', function () {
-    lastInputWasEqual = false;
+    operatorAfterComputing = divide;
+    lastInputWasEqual2 = false;
     operatorFunctions()
 
     operator = divide;
@@ -198,7 +209,7 @@ computeButton.addEventListener('click', function () {
         number2 = '';
         displayValue = '';
     };
-
+    lastInputWasEqual2 = true;
     operator = undefined;
 
     console.log(number1 + ` is number 1 on button = click`);
