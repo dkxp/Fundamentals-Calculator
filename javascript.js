@@ -273,5 +273,13 @@ clearButton.addEventListener('click', function () {
     number1 = undefined;
     number2 = '';
     operator = undefined;
+    
+    console.log(isNumber1Empty + 'value of isItCleared');
+    console.log(number1 + ` is number 1 on button = click`);
+    console.log(number2 + ` is number 2 on button = click`);
+    console.log(displayValue + ` is displayValue on = button click`);
+    console.log(display.innerHTML + ` is display.innerHTML on = button click`);
+    console.log(operator + ` is operator`);
+    console.log('                         ');
 })
 
