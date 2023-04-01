@@ -101,6 +101,7 @@ for (let i = 1; i < buttonDigitsArray.length; i++) {
     });
 };
 
+// 0/Zero Button
 buttonDigitsArray[0].addEventListener('click', function () {   
     if (emptyValues === false) {
         if (number1 === undefined) {
@@ -112,7 +113,7 @@ buttonDigitsArray[0].addEventListener('click', function () {
             displayValue += '0'
             display.innerHTML = displayValue;
             number2 += '0';
-        }
+        };
     };
 
     document.querySelector('[type="+"]').disabled = false;
@@ -199,10 +200,7 @@ divideButton.addEventListener('click', function () {
 let computeButton = document.querySelector('[type="="]');
 computeButton.addEventListener('click', function () {
     lastInputWasEqual = true;
-    if (number1 === undefined) {
-        number1 = displayValue;
-    };
-
+   
     if (number1 !== undefined && number2.length !== 0) {
         number1 = operate (number1, number2, operator);
         display.innerHTML = number1;
@@ -211,6 +209,7 @@ computeButton.addEventListener('click', function () {
     };
     lastInputWasEqual2 = true;
     operator = undefined;
+    emptyValues = true;
 
     console.log(number1 + ` is number 1 on button = click`);
     console.log(number2 + ` is number 2 on button = click`);
