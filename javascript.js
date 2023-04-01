@@ -39,7 +39,7 @@ for (let i = 0; i <= 9; i++) {
 };
 
 // Number clicks
-for (let i = 1; i < buttonDigitsArray.length; i++) {
+for (let i = 0; i < buttonDigitsArray.length; i++) {
     buttonDigitsArray[i].addEventListener('click', function () {
         
         if (number1 === undefined) {
@@ -70,12 +70,17 @@ buttonDigitsArray[0].addEventListener('click', function () {
         displayValue = 0;
     };
     displayValue += 0;
-    console.log(displayValue);
-    display.innerHTML = displayValue;
+    display.innerHTML = number1;
     document.querySelector('[type="+"]').disabled = false;
     document.querySelector('[type="-"]').disabled = false;
     document.querySelector('[type="*"]').disabled = false;
     document.querySelector('[type="%"]').disabled = false;
+
+    console.log(number1 + ` is number 1 on button 0 click`);
+    console.log(number2 + ` is number 2 on button 0 click`);
+    console.log(displayValue + ` is displayValue on 0 button click`);
+    console.log(display.innerHTML + ` is display.innerHTML on 0 button click`);
+    console.log(operator + ` is operator`);
 });
 
 //Operator Buttons
