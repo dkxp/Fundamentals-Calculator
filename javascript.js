@@ -99,7 +99,7 @@ buttonDigitsArray[0].addEventListener('click', function () {
 // Plus Button
 let plusButton = document.querySelector('[type="+"]');
 plusButton.addEventListener('click', function () {
-    if (number1 !== undefined && number2.length !== 0) {
+    if (number1 !== undefined && number2.length !== 0 && operator !== undefined) {
         number1 = operate (number1, number2, operator);
         display.innerHTML = number1;
         number2 = '';
@@ -108,12 +108,14 @@ plusButton.addEventListener('click', function () {
     if (number1 === undefined) {
         number1 = displayValue;
     };
+    operator = add;
+    displayValue = 0;
+
     document.querySelector('[type="+"]').disabled = true;
     document.querySelector('[type="-"]').disabled = false;
     document.querySelector('[type="*"]').disabled = false;
     document.querySelector('[type="%"]').disabled = false;
     
-    operator = add;
 
     console.log(number1 + ` is number 1 on button + click`);
     console.log(number2 + ` is number 2 on button + click`);
@@ -126,20 +128,20 @@ plusButton.addEventListener('click', function () {
 // Minus Button
 let subtractButton = document.querySelector('[type="-"]');
 subtractButton.addEventListener('click', function () {
+    
     if (number1 === undefined) {
         number1 = displayValue;
     };
 
-    if (number1 !== undefined && number2.length !== 0) {
+    if (number1 !== undefined && number2.length !== 0 && operator !== undefined) {
         number1 = operate (number1, number2, operator);
         display.innerHTML = number1;
         number2 = '';
         displayValue = '';
     };
-
+    operator = subtract;
     displayValue = 0;   
 
-    operator = subtract;
 
     document.querySelector('[type="-"]').disabled = true;
     document.querySelector('[type="+"]').disabled = false;
@@ -157,7 +159,8 @@ subtractButton.addEventListener('click', function () {
 // Multiply Button
 let multiplyButton = document.querySelector('[type="*"]');
 multiplyButton.addEventListener('click', function () {
-    if (number1 !== undefined && number2.length !== 0) {
+    
+    if (number1 !== undefined && number2.length !== 0 && operator !== undefined) {
         number1 = operate (number1, number2, operator);
         display.innerHTML = number1;
         number2 = '';
@@ -188,20 +191,22 @@ multiplyButton.addEventListener('click', function () {
 // Divide Button
 let divideButton = document.querySelector('[type="%"]');
 divideButton.addEventListener('click', function () {
-    if (number1 === undefined) {
-        number1 = displayValue;
-    };
+    
 
-    if (number1 !== undefined && number2.length !== 0) {
+    if (number1 !== undefined && number2.length !== 0 && operator !== undefined) {
         number1 = operate (number1, number2, operator);
         display.innerHTML = number1;
         number2 = '';
         displayValue = '';
     };
 
+    if (number1 === undefined) {
+        number1 = displayValue;
+    };
+    
+    operator = divide;
     displayValue = 0;
 
-    operator = divide;
 
     document.querySelector('[type="%"]').disabled = true;
     document.querySelector('[type="+"]').disabled = false;
