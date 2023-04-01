@@ -12,31 +12,51 @@ let divide = (a, b) => a / b;
 
 // Variables to represent number, operator, number
 let number1;
-let number2;
+let number2 = '';
 let operator;
 
 // Operate function
 let operate = function (a, b, operator) {
-    return operator (parseInt(a, 10), parseInt(b, 10));
+    if (number2.length === 0) {
+        return (parseInt(a, 10));
+    } else {
+        return operator (parseInt(a, 10), parseInt(b, 10));
+    };
 };
 
 // Basic HTML Calc (Done)
 
 // Create functions to populate calc display when numbers pressed
-// **Note: should be storing 'display value' in variable, for future use
+
 let numberChain = document.querySelector('.displayHistory');
 let display = document.querySelector('.display');
 let displayValue = '';
 let buttonDigitsArray = [];
+let isItCleared = true;
 
 for (let i = 0; i <= 9; i++) {
     buttonDigitsArray[i] = document.querySelector(`[type="${i}"]`);
 };
 
+// Number clicks
 for (let i = 1; i < buttonDigitsArray.length; i++) {
     buttonDigitsArray[i].addEventListener('click', function () {
-        displayValue += i;
-        display.innerHTML = displayValue;
+        
+        if (number1 === undefined) {
+            displayValue += i;
+            display.innerHTML = displayValue;
+        };
+        if (number1 !== undefined) {
+            display.innerHTML = number1;
+            number2 += i;
+        }
+
+        console.log(number1 + ` is number 1 on button ${i} click`);
+        console.log(number2 + ` is number 2 on button ${i} click`);
+        console.log(displayValue + ` is displayValue on button ${i} click`);
+        console.log(display.innerHTML + ` is display.innerHTML on ${i} button click`);
+        console.log(operator + ` is operator`);
+
         document.querySelector('[type="+"]').disabled = false;
         document.querySelector('[type="-"]').disabled = false;
         document.querySelector('[type="*"]').disabled = false;
@@ -60,18 +80,33 @@ buttonDigitsArray[0].addEventListener('click', function () {
 
 //Operator Buttons
 
+// Plus Button
 let plusButton = document.querySelector('[type="+"]');
 plusButton.addEventListener('click', function () {
-    
-    numberChain.innerHTML = numberChain.innerHTML + displayValue + ' + ';
-    displayValue = 0;
+    if (number1 !== undefined && number2.length !== 0) {
+        number1 = operate (number1, number2, operator);
+        display.innerHTML = number1;
+        number2 = '';
+        displayValue = '';
+    };
+    if (number1 === undefined) {
+        number1 = displayValue;
+    };
     document.querySelector('[type="+"]').disabled = true;
     document.querySelector('[type="-"]').disabled = false;
     document.querySelector('[type="*"]').disabled = false;
     document.querySelector('[type="%"]').disabled = false;
     
+    operator = add;
+
+    console.log(number1 + ` is number 1 on button + click`);
+    console.log(number2 + ` is number 2 on button + click`);
+    console.log(displayValue + ` is displayValue on + button click`);
+    console.log(display.innerHTML + ` is display.innerHTML on + button click`);
+    console.log(operator + ` is operator`);
 });
 
+// Minus Button
 let subtractButton = document.querySelector('[type="-"]');
 subtractButton.addEventListener('click', function () {
     numberChain.innerHTML = numberChain.innerHTML + displayValue + ' - ';
@@ -81,16 +116,21 @@ subtractButton.addEventListener('click', function () {
     document.querySelector('[type="*"]').disabled = false;
     document.querySelector('[type="%"]').disabled = false;
     
+    console.log(number1 + ` is number 1 on button - click`);
+    console.log(number2 + ` is number 2 on button - click`);
+    console.log(displayValue + ` is displayValue on - button click`);
+    console.log(display.innerHTML + ` is display.innerHTML on - button click`);
+    console.log(operator + ` is operator`);
 });
+
 // Multiply Button
 let multiplyButton = document.querySelector('[type="*"]');
 multiplyButton.addEventListener('click', function () {
-    operator = multiply;
-    if (number1 !== undefined) {
-        number2 = displayValue;
-        number1 = operate (number1, number2, multiply);
+    if (number1 !== undefined && number2.length !== 0) {
+        number1 = operate (number1, number2, operator);
         display.innerHTML = number1;
-        console.log(number1);
+        number2 = '';
+        displayValue = '';
     };
     // Store displayValue into number1
     if (number1 === undefined) {
@@ -102,23 +142,31 @@ multiplyButton.addEventListener('click', function () {
     document.querySelector('[type="+"]').disabled = false;
     document.querySelector('[type="-"]').disabled = false;
     document.querySelector('[type="%"]').disabled = false;
-    /* if (displayValue.length !== 0) {
-        number1Exists = true;
-    }; */
-    console.log(number1 + ' Number1');
-    console.log(number2 + ' Number2');
-    console.log(displayValue + ' DisplayValue');
+    
+    operator = multiply;
+
+    console.log(number1 + ` is number 1 on button * click`);
+    console.log(number2 + ` is number 2 on button * click`);
+    console.log(displayValue + ` is displayValue on * button click`);
+    console.log(display.innerHTML + ` is display.innerHTML on * button click`);
+    console.log(operator + ` is operator`);
+
 });
 
+// Divide Button
 let divideButton = document.querySelector('[type="%"]');
 divideButton.addEventListener('click', function () {
-    // Divide the previous number with the next number and store into array!
-    /* numberChain.innerHTML = numberChain.innerHTML + displayValue + ' % '; */
     displayValue = 0;
     document.querySelector('[type="%"]').disabled = true;
     document.querySelector('[type="+"]').disabled = false;
     document.querySelector('[type="-"]').disabled = false;
     document.querySelector('[type="*"]').disabled = false;
+
+    console.log(number1 + ` is number 1 on button % click`);
+    console.log(number2 + ` is number 2 on button % click`);
+    console.log(displayValue + ` is displayValue on % button click`);
+    console.log(display.innerHTML + ` is display.innerHTML on % button click`);
+    console.log(operator + ` is operator`);
 });
 
 // Compute Total
@@ -129,5 +177,4 @@ computeButton.addEventListener('click', function () {
 
 // Clear button TODO:
 // number1Exists set to false!
-
 
