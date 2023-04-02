@@ -25,7 +25,7 @@ let operate = function (a, b, operator) {
 
 // Callback Function for Operand Buttons
 let onOperandPress = function () {
-    if (number1 !== undefined && displayValue !== undefined) {
+    if (number1 !== undefined && displayValue !== undefined && lastClickWasTotaled === false) {
         number2 = displayValue;
         number1 = operate(number1, number2, operator);
         display.innerHTML = number1;
@@ -47,6 +47,7 @@ let displayValue;
 let buttonDigitsArray = [];
 numberChain.innerHTML = '';
 display.innerHTML = 0;
+let lastClickWasTotaled = false;
 
 for (let i = 0; i <= 9; i++) {
     buttonDigitsArray[i] = document.querySelector(`[type="${i}"]`);
@@ -55,7 +56,10 @@ for (let i = 0; i <= 9; i++) {
 // 0-9 Buttons
 for (let i = 0; i < buttonDigitsArray.length; i++) {
     buttonDigitsArray[i].addEventListener('click', function () {
-    // Number Button clicks
+    if (lastClickWasTotaled === true) {
+        number1 = undefined;
+        lastClickWasTotaled = false;
+    };
     if (displayValue !== undefined) {
         displayValue = displayValue.toString() + i;
         display.innerHTML = displayValue;
@@ -170,19 +174,11 @@ computeButton.addEventListener('click', function () {
         display.innerHTML = number1;
         numberChain.innerHTML = number1;
         displayValue = undefined;
+        lastClickWasTotaled = true;
     };
-    /* if (number1 === undefined & computedTotal !== undefined) {
-        displayValue.innerHTML = displayValue;
-    };
-    if (number1 !== undefined) {
-        number1 = operate (number1, number2, operator);
-        display.innerHTML = number1;
-        number2 = '';
-        displayValue = number1;
-        isNumber1Empty = true;
-        numberChain.innerHTML = number1;
-    }; */
+    
     operator = undefined;
+    
 
     console.log(number1 + ` is number 1 on button = click`);
     console.log(number2 + ` is number 2 on button = click`);
