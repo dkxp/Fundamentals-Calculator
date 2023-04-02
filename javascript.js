@@ -217,6 +217,7 @@ computeButton.addEventListener('click', function () {
         number2 = '';
         displayValue = number1;
         isNumber1Empty = true;
+        numberChain.innerHTML += ' =' + ' ' + number1;
     };
     operator = undefined;
 
