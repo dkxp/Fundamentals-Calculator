@@ -50,11 +50,12 @@ function onOperandPress () {
 
 // Global Variables
 
-let numberChain = document.querySelector('.displayHistory');
+let numberChain = document.querySelector('.numberChain');
 let display = document.querySelector('.display');
 let displayValue = '';
 let buttonDigitsArray = [];
 let isNumber1Empty = true;
+numberChain.innerHTML = '';
 display.innerHTML = 0;
 
 for (let i = 0; i <= 9; i++) {
@@ -208,6 +209,7 @@ let computeButton = document.querySelector('[type="="]');
 computeButton.addEventListener('click', function () {
     if (number1 === undefined) {
         number1 = displayValue;
+        numberChain.innerHTML += displayValue;
     };
     if (number1 !== undefined && number2.length !== 0) {
         number1 = operate (number1, number2, operator);
