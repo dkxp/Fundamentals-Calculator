@@ -181,7 +181,7 @@ computeButton.addEventListener('click', function () {
 let clearButton = document.querySelector('[type="clear"]');
 clearButton.addEventListener('click', function () {
     display.innerHTML = 0;
-    displayValue;
+    displayValue = undefined;
     numberChain.innerHTML = '';
     number1 = undefined;
     number2 = undefined;
