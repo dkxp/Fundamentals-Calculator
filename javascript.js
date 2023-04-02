@@ -25,11 +25,15 @@ let operate = function (a, b, operator) {
 
 // Callback Function for Operand Buttons
 let onOperandPress = function () {
+    if (displayValue === undefined && number1 !== undefined) {
+        numberChain.innerHTML = `${number1} ${operandSymbol}`;
+    }
     if (number1 !== undefined && displayValue !== undefined && lastClickWasTotaled === false) {
         number2 = displayValue;
         number1 = operate(number1, number2, operator);
         display.innerHTML = number1;
         displayValue = undefined;
+        // Not running when changing operand sequentially, due to displayValue being undefined
         numberChain.innerHTML = number1 + ' ' + operandSymbol;
     };
     if (number1 === undefined) {
@@ -167,6 +171,9 @@ computeButton.addEventListener('click', function () {
         numberChain.innerHTML = number1;
         displayValue = undefined;
         lastClickWasTotaled = true;
+    };
+    if (number1 === undefined) {
+        numberChain.innerHTML = displayValue;
     };  
     operator = undefined;
     
