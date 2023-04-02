@@ -1,4 +1,88 @@
-div {
-    height: 50px;
-    width: 50px;
+.calculator {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 400px;
+    height: 515px;
+    padding: 20px;
+    background-color: rgb(187, 182, 182);
+    gap: 15px;
+    border-radius: 25px;
+    border-style: solid;
+    border-color: black;
+}
+
+.displayContainer {
+    justify-content: center;
+    display:flex;
+    width: 380px;
+    height: 120px;
+    border-color: black;
+    border-style: solid;
+    flex-direction: column;
+    background-color: white;
+}
+
+.numberChain {
+    display:flex;
+    width: 365px;
+    height: 32px;
+    flex-direction: : row-reverse;
+    font-size: 25px;
+}
+
+.display {
+    display: flex;
+    width: 365px;
+    height: 64px;
+    flex-direction: row-reverse;
+    font-size: 50px;
+}
+
+.cleardeleteButtons {
+    display: flex;
+    justify-content: space-evenly;
+    width: 386px;
+    height: 60px;
+    justify-content: space-between;
+}
+
+.clear {
+    background-color: rgb(210, 174, 174);
+    width: 185px;
+    font-size: 22px;
+    border-style: solid;
+    border-color: black;
+}
+
+.delete {
+    background-color:rgb(168, 168, 222);
+    width: 185px;
+    font-size: 22px;
+    border-style: solid;
+    border-color: black;
+}
+
+
+.numberChain {
+    display: flex;
+    width: 312px;
+    height: 32px;
+}
+
+
+.digitcontainer {
+    display: flex;
+    width: 386px;
+    height: 60px;
+    justify-content: space-between;
+}
+
+.input {
+    width: 85px;
+    height: 68px;
+    font-size: 23px;
+    background-color: white;
+    border-style: solid;
+    border-color: black;
 }

@@ -37,22 +37,6 @@ for (let i = 0; i <= 9; i++) {
     buttonDigitsArray[i] = document.querySelector(`[type="${i}"]`);
 };
 
-// Callback Function
-let callBackFunction = function () {
-    if (number1 !== undefined) {
-        isNumber1Empty = false;
-    };
-    if (number1 !== undefined && number2.length !== 0 && operator !== undefined) {
-        number1 = operate (number1, number2, operator);
-        display.innerHTML = number1;
-        number2 = '';
-        displayValue = '';
-    };
-    if (number1 === undefined) {
-        number1 = displayValue;
-    };
-}
-
 // 1-9 Buttons
 for (let i = 1; i < buttonDigitsArray.length; i++) {
     buttonDigitsArray[i].addEventListener('click', function () {
@@ -118,7 +102,18 @@ buttonDigitsArray[0].addEventListener('click', function () {
 // Plus Button
 let plusButton = document.querySelector('[type="+"]');
 plusButton.addEventListener('click', function () {
-    callBackFunction();
+    if (number1 !== undefined) {
+        isNumber1Empty = false;
+    };
+    if (number1 !== undefined && number2.length !== 0 && operator !== undefined) {
+        number1 = operate (number1, number2, operator);
+        display.innerHTML = number1;
+        number2 = '';
+        displayValue = '';
+    };
+    if (number1 === undefined) {
+        number1 = displayValue;
+    };
     operator = add;
     displayValue = 0;
     document.querySelector('[type="+"]').disabled = true;
@@ -138,7 +133,19 @@ plusButton.addEventListener('click', function () {
 // Minus Button
 let subtractButton = document.querySelector('[type="-"]');
 subtractButton.addEventListener('click', function () {
-    callBackFunction();
+    if (number1 !== undefined) {
+        isNumber1Empty = false;
+    };
+    if (number1 === undefined) {
+        number1 = displayValue;
+    };
+
+    if (number1 !== undefined && number2.length !== 0 && operator !== undefined) {
+        number1 = operate (number1, number2, operator);
+        display.innerHTML = number1;
+        number2 = '';
+        displayValue = '';
+    };
     operator = subtract;
     displayValue = 0;   
     document.querySelector('[type="-"]').disabled = true;
@@ -158,7 +165,18 @@ subtractButton.addEventListener('click', function () {
 // Multiply Button
 let multiplyButton = document.querySelector('[type="*"]');
 multiplyButton.addEventListener('click', function () {
-    callBackFunction();
+    if (number1 !== undefined) {
+        isNumber1Empty = false;
+    };
+    if (number1 !== undefined && number2.length !== 0 && operator !== undefined) {
+        number1 = operate (number1, number2, operator);
+        display.innerHTML = number1;
+        number2 = '';
+        displayValue = '';
+    };
+    if (number1 === undefined) {
+        number1 = displayValue;
+    };
     displayValue = 0;
     operator = multiply;
     document.querySelector('[type="*"]').disabled = true;
@@ -178,7 +196,18 @@ multiplyButton.addEventListener('click', function () {
 // Divide Button
 let divideButton = document.querySelector('[type="%"]');
 divideButton.addEventListener('click', function () {
-    callBackFunction();
+    if (number1 !== undefined) {
+        isNumber1Empty = false;
+    };
+    if (number1 !== undefined && number2.length !== 0 && operator !== undefined) {
+        number1 = operate (number1, number2, operator);
+        display.innerHTML = number1;
+        number2 = '';
+        displayValue = '';
+    };
+    if (number1 === undefined) {
+        number1 = displayValue;
+    };
     operator = divide;
     displayValue = 0;
     document.querySelector('[type="%"]').disabled = true;

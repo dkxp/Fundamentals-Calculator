@@ -5,41 +5,44 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="styles.css" />
     <script src="./javascript.js" defer></script>
 <body>
 <!-- Create HTML calculator with buttons 
     for each digit, each of the above functions
     and an "Equals" key. -->
 <div class="calculator">
-    <div class="displayHistory"></div>
-    <div class="display"></div>
-    <div class="cleardelete">
-        <button type="clear">CLEAR</button>
-        <button>DELETE</button>
+    <div class="displayContainer">
+        <div class="numberChain"></div>
+        <div class="display"></div>
+    </div>
+    <div class="cleardeleteButtons">
+        <button type="clear" class="clear">CLEAR</button>
+        <button type="delete" class="delete">DELETE</button>
     </div>
     <div class="digitcontainer">
-        <button type="7">7</button>
-        <button type="8">8</button>
-        <button type="9">9</button>
-        <button type="%">%</button>  
+        <button type="7" class="input">7</button>
+        <button type="8" class="input">8</button>
+        <button type="9" class="input">9</button>
+        <button type="%" class="input">%</button>  
     </div>
     <div class="digitcontainer">
-        <button type="4">4</button>
-        <button type="5">5</button>
-        <button type="6">6</button>
-        <button type="*">x</button>  
+        <button type="4" class="input">4</button>
+        <button type="5" class="input">5</button>
+        <button type="6" class="input">6</button>
+        <button type="*" class="input">x</button>  
     </div>
     <div class="digitcontainer">
-        <button type="1">1</button>
-        <button type="2">2</button>
-        <button type="3">3</button>
-        <button type="-">-</button>  
+        <button type="1" class="input">1</button>
+        <button type="2" class="input">2</button>
+        <button type="3" class="input">3</button>
+        <button type="-" class="input">-</button>  
     </div>
     <div class="digitcontainer">
-        <button type=".">.</button>
-        <button type="0">0</button>
-        <button type="=">=</button>
-        <button type="+">+</button>  
+        <button type="." class="input">.</button>
+        <button type="0" class="input">0</button>
+        <button type="=" class="input">=</button>
+        <button type="+" class="input">+</button>  
     </div>
 </div>
 
