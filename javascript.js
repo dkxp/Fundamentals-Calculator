@@ -38,6 +38,14 @@ function onOperandPress () {
     if (number1 === undefined) {
         number1 = displayValue;
     };
+    if (number1 === Infinity) {
+        alert("Can't divide by zero!");
+        number1 = undefined;
+        number2 = '';
+        displayValue = '';
+        display.innerHTML = 0;
+        operator = undefined;
+    };
 }
 
 // Global Variables
@@ -217,6 +225,14 @@ computeButton.addEventListener('click', function () {
     console.log(display.innerHTML + ` is display.innerHTML on = button click`);
     console.log(operator + ` is operator`);
     console.log('                         ');
+    if (number1 === Infinity) {
+        alert ("Can't Divide by Infinity!");
+        number1 = undefined;
+        number2 = '';
+        displayValue = '';
+        display.innerHTML = 0;
+        operator = undefined;
+    };
 });
 
 // Clear button
