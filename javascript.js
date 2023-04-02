@@ -165,7 +165,13 @@ divideButton.addEventListener('click', function () {
 // Compute Button
 let computeButton = document.querySelector('[type="="]');
 computeButton.addEventListener('click', function () {
-    if (number1 === undefined & computedTotal !== undefined) {
+    if (number1 !== undefined && operator !== undefined) {
+        number1 = operate (number1, displayValue, operator);
+        display.innerHTML = number1;
+        numberChain.innerHTML = number1;
+        displayValue = undefined;
+    };
+    /* if (number1 === undefined & computedTotal !== undefined) {
         displayValue.innerHTML = displayValue;
     };
     if (number1 !== undefined) {
@@ -175,7 +181,7 @@ computeButton.addEventListener('click', function () {
         displayValue = number1;
         isNumber1Empty = true;
         numberChain.innerHTML = number1;
-    };
+    }; */
     operator = undefined;
 
     console.log(number1 + ` is number 1 on button = click`);
