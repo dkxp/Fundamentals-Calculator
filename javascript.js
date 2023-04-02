@@ -29,8 +29,8 @@ let onOperandPress = function () {
         number2 = displayValue;
         number1 = operate(number1, number2, operator);
         display.innerHTML = number1;
-        numberChain.innerHTML = number1;
         displayValue = undefined;
+        numberChain.innerHTML = number1 + ' ' + operandSymbol;
     };
     if (number1 === undefined) {
         number1 = displayValue;
@@ -40,7 +40,6 @@ let onOperandPress = function () {
 };
 
 // Global Variables
-
 let numberChain = document.querySelector('.numberChain');
 let display = document.querySelector('.display');
 let displayValue;
@@ -48,6 +47,7 @@ let buttonDigitsArray = [];
 numberChain.innerHTML = '';
 display.innerHTML = 0;
 let lastClickWasTotaled = false;
+let operandSymbol;
 
 for (let i = 0; i <= 9; i++) {
     buttonDigitsArray[i] = document.querySelector(`[type="${i}"]`);
@@ -82,12 +82,10 @@ for (let i = 0; i < buttonDigitsArray.length; i++) {
     });
 };
 
-
-// Operator Buttons
-
 // Plus Button
 let plusButton = document.querySelector('[type="+"]');
 plusButton.addEventListener('click', function () {
+    operandSymbol = '+';
     onOperandPress();
     operator = add;
     document.querySelector('[type="+"]').disabled = true;
@@ -106,6 +104,7 @@ plusButton.addEventListener('click', function () {
 // Minus Button
 let subtractButton = document.querySelector('[type="-"]');
 subtractButton.addEventListener('click', function () {
+    operandSymbol = '-';
     onOperandPress();
     operator = subtract;  
     document.querySelector('[type="-"]').disabled = true;
@@ -124,6 +123,7 @@ subtractButton.addEventListener('click', function () {
 // Multiply Button
 let multiplyButton = document.querySelector('[type="*"]');
 multiplyButton.addEventListener('click', function () {
+    operandSymbol = '*';
     onOperandPress();
     operator = multiply;
     document.querySelector('[type="*"]').disabled = true;
@@ -142,6 +142,7 @@ multiplyButton.addEventListener('click', function () {
 // Divide Button
 let divideButton = document.querySelector('[type="%"]');
 divideButton.addEventListener('click', function () {
+    operandSymbol = '%';
     onOperandPress();
     operator = divide;
     document.querySelector('[type="%"]').disabled = true;
@@ -193,7 +194,7 @@ clearButton.addEventListener('click', function () {
     console.log(display.innerHTML + ` is display.innerHTML on = button click`);
     console.log(operator + ` is operator`);
     console.log('                         ');
-})
+});
 
 // Decimal Button
 /* let decimalButton = document.querySelector('[type="."]');
