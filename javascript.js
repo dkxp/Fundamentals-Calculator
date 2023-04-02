@@ -12,50 +12,26 @@ let divide = (a, b) => a / b;
 
 // Variables to represent number, operator, number
 let number1;
-let number2 = '';
+let number2;
 let operator;
+let computedTotal;
 
 // Operate function
 let operate = function (a, b, operator) {
-    if (number2.length === 0) {
-        return (parseInt(a, 10));
-    } else if (operator !== undefined) {
+    if (operator !== undefined) {
         return operator (parseFloat(a, 10), parseFloat(b, 10));
     };
 };
 
 // Callback Function for Operand Buttons
-function onOperandPress () {
-    if (number1 !== undefined) {
-        isNumber1Empty = false;
-    };
-    if (number1 !== undefined && number2.length !== 0 && operator !== undefined) {
-        number1 = operate (number1, number2, operator);
-        display.innerHTML = number1;
-        number2 = '';
-        displayValue = '';
-    };
-    if (number1 === undefined) {
-        number1 = displayValue;
-    };
-    if (number1 === Infinity || (isNaN(number1))){
-        alert("Can't divide by zero!");
-        number1 = undefined;
-        number2 = '';
-        displayValue = '';
-        display.innerHTML = 0;
-        operator = undefined;
-        numberChain.innerHTML = '';
-    };
-}
+
 
 // Global Variables
 
 let numberChain = document.querySelector('.numberChain');
 let display = document.querySelector('.display');
-let displayValue = 0;
+let displayValue;
 let buttonDigitsArray = [];
-let isNumber1Empty = true;
 numberChain.innerHTML = '';
 display.innerHTML = 0;
 
@@ -66,17 +42,18 @@ for (let i = 0; i <= 9; i++) {
 // 0-9 Buttons
 for (let i = 0; i < buttonDigitsArray.length; i++) {
     buttonDigitsArray[i].addEventListener('click', function () {
-    // First Click shows on Display
-    if (displayValue !== 0) {
+    // Number Button clicks
+    if (displayValue !== undefined) {
         displayValue = displayValue.toString() + i;
         display.innerHTML = displayValue;
     };
-    if (displayValue === 0) {
+    if (displayValue === undefined) {
         displayValue = i;
         display.innerHTML = displayValue;
     };
     
-    // All clicks after first click
+    
+
 
 
 
@@ -100,15 +77,26 @@ for (let i = 0; i < buttonDigitsArray.length; i++) {
 // Plus Button
 let plusButton = document.querySelector('[type="+"]');
 plusButton.addEventListener('click', function () {
-    onOperandPress();
+    if (number1 !== undefined) {
+        number2 = displayValue;
+        number1 = operate(number1, number2, operator);
+        displayValue.innerHTML = number1;
+        numberChain.innerHTML = number1;
+        displayValue = undefined;
+    };
+    if (number1 === undefined) {
+        number1 = displayValue;
+        numberChain.innerHTML = number1;
+        displayValue = undefined;
+    };
     operator = add;
-    displayValue = 0;
+
+
     document.querySelector('[type="+"]').disabled = true;
     document.querySelector('[type="-"]').disabled = false;
     document.querySelector('[type="*"]').disabled = false;
     document.querySelector('[type="%"]').disabled = false;
     
-    console.log(isNumber1Empty + 'value of isNumber1Empty');
     console.log(number1 + ` is number 1 on button + click`);
     console.log(number2 + ` is number 2 on button + click`);
     console.log(displayValue + ` is displayValue on + button click`);
@@ -120,15 +108,14 @@ plusButton.addEventListener('click', function () {
 // Minus Button
 let subtractButton = document.querySelector('[type="-"]');
 subtractButton.addEventListener('click', function () {
-    onOperandPress();
-    operator = subtract;
-    displayValue = 0;   
+
+
+     
     document.querySelector('[type="-"]').disabled = true;
     document.querySelector('[type="+"]').disabled = false;
     document.querySelector('[type="*"]').disabled = false;
     document.querySelector('[type="%"]').disabled = false;
     
-    console.log(isNumber1Empty + 'value of isNumber1Empty');
     console.log(number1 + ` is number 1 on button - click`);
     console.log(number2 + ` is number 2 on button - click`);
     console.log(displayValue + ` is displayValue on - button click`);
@@ -140,15 +127,12 @@ subtractButton.addEventListener('click', function () {
 // Multiply Button
 let multiplyButton = document.querySelector('[type="*"]');
 multiplyButton.addEventListener('click', function () {
-    onOperandPress();
-    displayValue = 0;
-    operator = multiply;
+   
     document.querySelector('[type="*"]').disabled = true;
     document.querySelector('[type="+"]').disabled = false;
     document.querySelector('[type="-"]').disabled = false;
     document.querySelector('[type="%"]').disabled = false;
 
-    console.log(isNumber1Empty + 'value of isNumber1Empty');
     console.log(number1 + ` is number 1 on button * click`);
     console.log(number2 + ` is number 2 on button * click`);
     console.log(displayValue + ` is displayValue on * button click`);
@@ -160,15 +144,12 @@ multiplyButton.addEventListener('click', function () {
 // Divide Button
 let divideButton = document.querySelector('[type="%"]');
 divideButton.addEventListener('click', function () {
-    onOperandPress();
-    operator = divide;
-    displayValue = 0;
+   
     document.querySelector('[type="%"]').disabled = true;
     document.querySelector('[type="+"]').disabled = false;
     document.querySelector('[type="-"]').disabled = false;
     document.querySelector('[type="*"]').disabled = false;
 
-    console.log(isNumber1Empty + 'value of isNumber1Empty');
     console.log(number1 + ` is number 1 on button % click`);
     console.log(number2 + ` is number 2 on button % click`);
     console.log(displayValue + ` is displayValue on % button click`);
@@ -180,31 +161,19 @@ divideButton.addEventListener('click', function () {
 // Compute Button
 let computeButton = document.querySelector('[type="="]');
 computeButton.addEventListener('click', function () {
-    if (number1 === undefined) {
-        number1 = displayValue;
-        numberChain.innerHTML += displayValue;
+    if (number1 === undefined & computedTotal !== undefined) {
+        displayValue.innerHTML = displayValue;
     };
-    if (number1 !== undefined && number2.length !== 0) {
+    if (number1 !== undefined) {
         number1 = operate (number1, number2, operator);
         display.innerHTML = number1;
         number2 = '';
         displayValue = number1;
         isNumber1Empty = true;
-        numberChain.innerHTML += number1;
+        numberChain.innerHTML = number1;
     };
     operator = undefined;
 
-    if (number1 === Infinity || (isNaN(number1))) {
-        alert ("Can't Divide by Infinity!");
-        number1 = undefined;
-        number2 = '';
-        displayValue = '';
-        display.innerHTML = 0;
-        operator = undefined;
-        numberChain.innerHTML = '';
-    };
-
-    console.log(isNumber1Empty + 'value of isNumber1Empty');
     console.log(number1 + ` is number 1 on button = click`);
     console.log(number2 + ` is number 2 on button = click`);
     console.log(displayValue + ` is displayValue on = button click`);
@@ -216,15 +185,13 @@ computeButton.addEventListener('click', function () {
 // Clear button
 let clearButton = document.querySelector('[type="clear"]');
 clearButton.addEventListener('click', function () {
-    isNumber1Empty = true;
     display.innerHTML = 0;
-    displayValue = '';
+    displayValue;
     numberChain.innerHTML = '';
     number1 = undefined;
-    number2 = '';
+    number2 = undefined;
     operator = undefined;
 
-    console.log(isNumber1Empty + 'value of isNumber1Empty');
     console.log(number1 + ` is number 1 on button = click`);
     console.log(number2 + ` is number 2 on button = click`);
     console.log(displayValue + ` is displayValue on = button click`);
