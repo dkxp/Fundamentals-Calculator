@@ -218,17 +218,10 @@ computeButton.addEventListener('click', function () {
         number2 = '';
         displayValue = number1;
         isNumber1Empty = true;
-        numberChain.innerHTML += ' =' + ' ' + number1;
+        numberChain.innerHTML += number1;
     };
     operator = undefined;
 
-    console.log(isNumber1Empty + 'value of isNumber1Empty');
-    console.log(number1 + ` is number 1 on button = click`);
-    console.log(number2 + ` is number 2 on button = click`);
-    console.log(displayValue + ` is displayValue on = button click`);
-    console.log(display.innerHTML + ` is display.innerHTML on = button click`);
-    console.log(operator + ` is operator`);
-    console.log('                         ');
     if (number1 === Infinity || (isNaN(number1))) {
         alert ("Can't Divide by Infinity!");
         number1 = undefined;
@@ -238,6 +231,14 @@ computeButton.addEventListener('click', function () {
         operator = undefined;
         numberChain.innerHTML = '';
     };
+
+    console.log(isNumber1Empty + 'value of isNumber1Empty');
+    console.log(number1 + ` is number 1 on button = click`);
+    console.log(number2 + ` is number 2 on button = click`);
+    console.log(displayValue + ` is displayValue on = button click`);
+    console.log(display.innerHTML + ` is display.innerHTML on = button click`);
+    console.log(operator + ` is operator`);
+    console.log('                         ');
 });
 
 // Clear button
@@ -246,6 +247,7 @@ clearButton.addEventListener('click', function () {
     isNumber1Empty = true;
     display.innerHTML = 0;
     displayValue = '';
+    numberChain.innerHTML = '';
     number1 = undefined;
     number2 = '';
     operator = undefined;
