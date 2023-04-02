@@ -19,7 +19,7 @@ let operator;
 let operate = function (a, b, operator) {
     if (number2.length === 0) {
         return (parseInt(a, 10));
-    } else {
+    } else if (operator !== undefined) {
         return operator (parseFloat(a, 10), parseFloat(b, 10));
     };
 };
@@ -53,7 +53,7 @@ function onOperandPress () {
 
 let numberChain = document.querySelector('.numberChain');
 let display = document.querySelector('.display');
-let displayValue = '';
+let displayValue = 0;
 let buttonDigitsArray = [];
 let isNumber1Empty = true;
 numberChain.innerHTML = '';
@@ -63,26 +63,23 @@ for (let i = 0; i <= 9; i++) {
     buttonDigitsArray[i] = document.querySelector(`[type="${i}"]`);
 };
 
-// 1-9 Buttons
-for (let i = 1; i < buttonDigitsArray.length; i++) {
+// 0-9 Buttons
+for (let i = 0; i < buttonDigitsArray.length; i++) {
     buttonDigitsArray[i].addEventListener('click', function () {
-        console.log(isNumber1Empty + 'value of isNumber1Empty');
-        if (isNumber1Empty === true) {
-            number1 = undefined;
-            displayValue = '';
-            console.log(number1);
-        };
-        isNumber1Empty = false;
-        console.log(isNumber1Empty + 'value of isNumber1Empty');
-        if (number1 === undefined) {
-            displayValue += i;
-            display.innerHTML = displayValue;
-        };
+    // First Click shows on Display
+    if (displayValue !== 0) {
+        displayValue = displayValue.toString() + i;
+        display.innerHTML = displayValue;
+    };
+    if (displayValue === 0) {
+        displayValue = i;
+        display.innerHTML = displayValue;
+    };
+    
+    // All clicks after first click
 
-        if (number1 !== undefined) {
-            display.innerHTML = number1;
-            number2 += i;
-        };
+
+
     document.querySelector('[type="+"]').disabled = false;
     document.querySelector('[type="-"]').disabled = false;
     document.querySelector('[type="*"]').disabled = false;
@@ -97,31 +94,6 @@ for (let i = 1; i < buttonDigitsArray.length; i++) {
     });
 };
 
-// 0 Button
-buttonDigitsArray[0].addEventListener('click', function () {   
-    if (isNumber1Empty === false) {
-        if (number1 === undefined) {
-            displayValue += 0;
-            display.innerHTML = displayValue;
-        };
-
-        if (number1 !== undefined) {
-            display.innerHTML = number1;
-            number2 += 0;
-        };
-    };
-    document.querySelector('[type="+"]').disabled = false;
-    document.querySelector('[type="-"]').disabled = false;
-    document.querySelector('[type="*"]').disabled = false;
-    document.querySelector('[type="%"]').disabled = false;
-
-    console.log(number1 + ` is number 1 on button 0 click`);
-    console.log(number2 + ` is number 2 on button 0 click`);
-    console.log(displayValue + ` is displayValue on 0 button click`);
-    console.log(display.innerHTML + ` is display.innerHTML on 0 button click`);
-    console.log(operator + ` is operator`);
-    console.log('                         ');
-});
 
 // Operator Buttons
 
