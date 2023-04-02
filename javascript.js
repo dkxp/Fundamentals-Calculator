@@ -67,13 +67,7 @@ for (let i = 0; i < buttonDigitsArray.length; i++) {
     if (displayValue === undefined) {
         displayValue = i;
         display.innerHTML = displayValue;
-    };
-    
-    
-
-
-
-
+    }; 
     document.querySelector('[type="+"]').disabled = false;
     document.querySelector('[type="-"]').disabled = false;
     document.querySelector('[type="*"]').disabled = false;
@@ -96,8 +90,6 @@ let plusButton = document.querySelector('[type="+"]');
 plusButton.addEventListener('click', function () {
     onOperandPress();
     operator = add;
-
-
     document.querySelector('[type="+"]').disabled = true;
     document.querySelector('[type="-"]').disabled = false;
     document.querySelector('[type="*"]').disabled = false;
@@ -115,8 +107,7 @@ plusButton.addEventListener('click', function () {
 let subtractButton = document.querySelector('[type="-"]');
 subtractButton.addEventListener('click', function () {
     onOperandPress();
-    operator = subtract;
-     
+    operator = subtract;  
     document.querySelector('[type="-"]').disabled = true;
     document.querySelector('[type="+"]').disabled = false;
     document.querySelector('[type="*"]').disabled = false;
@@ -175,11 +166,9 @@ computeButton.addEventListener('click', function () {
         numberChain.innerHTML = number1;
         displayValue = undefined;
         lastClickWasTotaled = true;
-    };
-    
+    };  
     operator = undefined;
     
-
     console.log(number1 + ` is number 1 on button = click`);
     console.log(number2 + ` is number 2 on button = click`);
     console.log(displayValue + ` is displayValue on = button click`);
