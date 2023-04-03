@@ -72,6 +72,9 @@ for (let i = 0; i < buttonDigitsArray.length; i++) {
     if (displayValue === undefined) {
         displayValue = i;
         display.innerHTML = displayValue;
+        if (displayValue === 0) {
+            displayValue = undefined;
+        };
     }; 
     document.querySelector('[type="+"]').disabled = false;
     document.querySelector('[type="-"]').disabled = false;
