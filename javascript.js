@@ -184,6 +184,9 @@ computeButton.addEventListener('click', function () {
     };
     if (number1 === undefined) {
         numberChain.innerHTML = displayValue;
+        if (displayValue === undefined) {
+            numberChain.innerHTML = 0;
+        };
     };  
     operator = undefined;
 
