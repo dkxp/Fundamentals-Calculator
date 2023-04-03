@@ -16,6 +16,7 @@ let divide = function (a, b) {
         alert ("Can't Divide By Zero!");
         numberChain.innerHTML = '';
         displayValue.innerHTML = 0;
+        number1 = 0;
     };
 };
 
@@ -40,22 +41,35 @@ let roundDecimals = function (numb) {
     let decimal;
     if (Number.isInteger(numb)) {
         return numb;
-    } else {
+    } else if (numb !== undefined) {
         integer = numb.toString().split('.')[0];
         decimal = numb.toString().split('.')[1];
     };
     if (decimal.length <= 3) {
         return numb;
         // subtract trailing 0s, if shown
-    };
-    if (decimal.length > 3) {
+    } else if (decimal.length > 3) {
         return integer + '.' + decimal.substring(0, 3);
     };
 };
 
 // Callback Function for Operand Buttons
 let onOperandPress = function () {
-    if (displayValue === 0 && number1 !== undefined && operator !== divide) {
+    if (number1 !== undefined) {
+        number2 = displayValue;
+        number1 = operate(number1, number2, operator);
+        display.innerHTML = number1;
+        displayValue = 0;
+        numberChain.innerHTML = number1;
+        number2 = undefined;
+    };
+    if (number1 === undefined) {
+        number1 = displayValue;
+        display.innerHTML = number1;
+        numberChain.innerHTML = number1;
+        displayValue = 0;
+    };
+    /* if (displayValue === 0 && number1 !== undefined && operator !== divide) {
         numberChain.innerHTML = `${number1} ${operandSymbol}`;
     };
     if (number1 !== undefined && displayValue !== 0) {
@@ -65,18 +79,21 @@ let onOperandPress = function () {
         displayValue = 0;
         numberChain.innerHTML = number1 + ' ' + operandSymbol;
     };
-    //** Added second clause, maybe remove? */
     if (number1 === undefined && displayValue !== undefined) {
         number1 = displayValue;
         numberChain.innerHTML = number1;
         displayValue = 0;
-    };
-    if (displayValue === 0 && operator === divide) {
+    }; */
+   /*  if (lastClickWasTotaled === true) {
+        number1 = displayValue;
+        lastClickWasTotaled = false;
+    }; */
+    // *** THIS NEEDS FIXING!!
+    /* if (displayValue === 0 && operator === divide) {
         alert ("Can't Divide By Zero!");
         numberChain.innerHTML = '';
         displayValue.innerHTML = 0;
-    };
-    lastClickWasTotaled = false;
+    }; */
 };
 
 // Global Variables
@@ -96,22 +113,12 @@ for (let i = 0; i <= 9; i++) {
 // 0-9 Buttons
 for (let i = 0; i < buttonDigitsArray.length; i++) {
     buttonDigitsArray[i].addEventListener('click', function () {
-    if (lastClickWasTotaled === true && operator == undefined) {
-        number1 = undefined;
-        displayValue = 0;
-        lastClickWasTotaled = false;
-    };
-    if (displayValue !== 0) {
-        displayValue = displayValue.toString() + i;
-        display.innerHTML = displayValue;
-    };
-    if (displayValue === 0) {
-        displayValue = i;
-        display.innerHTML = displayValue;
-        if (displayValue === 0) {
-            displayValue = 0;
-        };
-    }; 
+
+    displayValue = displayValue.toString() + i;
+    displayValue = parseInt(displayValue, 10);
+    display.innerHTML = displayValue;
+
+    
     document.querySelector('[type="+"]').disabled = false;
     document.querySelector('[type="-"]').disabled = false;
     document.querySelector('[type="*"]').disabled = false;
