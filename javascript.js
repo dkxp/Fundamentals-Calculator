@@ -55,8 +55,11 @@ let roundDecimals = function (numb) {
 
 // Callback Function for Operand Buttons
 let onOperandPress = function () {
-    if (number1 !== undefined) {
-        number2 = displayValue;
+    if (number1 !== undefined && number2 === undefined) {
+        displayValue = 0;
+        display.innerHTML = displayValue;
+    };
+    if (number1 !== undefined && number2 !== undefined) {
         number1 = operate(number1, number2, operator);
         display.innerHTML = number1;
         displayValue = 0;
@@ -69,6 +72,7 @@ let onOperandPress = function () {
         numberChain.innerHTML = number1;
         displayValue = 0;
     };
+    
     /* if (displayValue === 0 && number1 !== undefined && operator !== divide) {
         numberChain.innerHTML = `${number1} ${operandSymbol}`;
     };
@@ -114,10 +118,21 @@ for (let i = 0; i <= 9; i++) {
 for (let i = 0; i < buttonDigitsArray.length; i++) {
     buttonDigitsArray[i].addEventListener('click', function () {
 
+    if (lastClickWasTotaled === true) {
+        displayValue = 0;
+        number1 = undefined;
+        number2 = undefined;
+        lastClickWasTotaled = false;
+    }
     displayValue = displayValue.toString() + i;
     displayValue = parseInt(displayValue, 10);
     display.innerHTML = displayValue;
 
+    if (number1 !== undefined) {
+        number2 = displayValue;
+    };
+
+    
     
     document.querySelector('[type="+"]').disabled = false;
     document.querySelector('[type="-"]').disabled = false;
@@ -137,6 +152,7 @@ for (let i = 0; i < buttonDigitsArray.length; i++) {
 // Plus Button
 let plusButton = document.querySelector('[type="+"]');
 plusButton.addEventListener('click', function () {
+    lastClickWasTotaled = false;
     operandSymbol = '+';
     onOperandPress();
     operator = add;
@@ -157,6 +173,7 @@ plusButton.addEventListener('click', function () {
 // Minus Button
 let subtractButton = document.querySelector('[type="-"]');
 subtractButton.addEventListener('click', function () {
+    lastClickWasTotaled = false;
     operandSymbol = '-';
     onOperandPress();
     operator = subtract;  
@@ -177,6 +194,7 @@ subtractButton.addEventListener('click', function () {
 // Multiply Button
 let multiplyButton = document.querySelector('[type="*"]');
 multiplyButton.addEventListener('click', function () {
+    lastClickWasTotaled = false;
     operandSymbol = '*';
     onOperandPress();
     operator = multiply;
@@ -197,6 +215,7 @@ multiplyButton.addEventListener('click', function () {
 // Divide Button
 let divideButton = document.querySelector('[type="%"]');
 divideButton.addEventListener('click', function () {
+    lastClickWasTotaled = false;
     operandSymbol = '%';
     onOperandPress();
     operator = divide;
@@ -217,7 +236,16 @@ divideButton.addEventListener('click', function () {
 // = Button
 let computeButton = document.querySelector('[type="="]');
 computeButton.addEventListener('click', function () {
-    if (number1 !== undefined && operator !== undefined) {
+    if (number1 !== undefined && number2 !== undefined) {
+        number1 = operate (number1, number2, operator);
+        displayValue = number1;
+        display.innerHTML = displayValue;
+        numberChain.innerHTML = displayValue;
+        number2 = undefined;
+    };
+    lastClickWasTotaled = true;
+
+    /* if (number1 !== undefined && operator !== undefined) {
         number1 = operate (number1, displayValue, operator);
         display.innerHTML = number1;
         numberChain.innerHTML = number1;
@@ -231,10 +259,11 @@ computeButton.addEventListener('click', function () {
         if (displayValue === 0) {
             numberChain.innerHTML = 0;
         };
-    };
+    }; */
     /* if (number1 === undefined) {
         display.innerHTML = 0;
     }; */
+
     operator = undefined;
 
     console.log(lastClickWasTotaled + ' value of lastClickWasTotaled');
