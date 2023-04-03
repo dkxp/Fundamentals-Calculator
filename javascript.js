@@ -303,6 +303,9 @@ computeButton.addEventListener('click', function () {
             display.innerHTML = 0;
             numberChain.innerHTML = '';}
     };
+    if (number1 === undefined && number2 === undefined) {
+        numberChain.innerHTML = '';
+    };
     lastClickWasTotaled = true;
 
     /* if (number1 !== undefined && operator !== undefined) {
