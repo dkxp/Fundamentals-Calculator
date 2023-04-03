@@ -25,20 +25,21 @@ let operate = function (a, b, operator) {
 
 // Callback Function for Operand Buttons
 let onOperandPress = function () {
-    if (displayValue === undefined && number1 !== undefined) {
+    if (displayValue === 0 && number1 !== undefined) {
         numberChain.innerHTML = `${number1} ${operandSymbol}`;
-    }
-    if (number1 !== undefined && displayValue !== undefined) {
+    };
+    if (number1 !== undefined && displayValue !== 0) {
         number2 = displayValue;
         number1 = operate(number1, number2, operator);
         display.innerHTML = number1;
-        displayValue = undefined;
+        displayValue = 0;
         numberChain.innerHTML = number1 + ' ' + operandSymbol;
     };
-    if (number1 === undefined) {
+    //** Added second clause, maybe remove? */
+    if (number1 === undefined && displayValue !== undefined) {
         number1 = displayValue;
         numberChain.innerHTML = number1;
-        displayValue = undefined;
+        displayValue = 0;
     };
     lastClickWasTotaled = false;
 };
@@ -46,7 +47,7 @@ let onOperandPress = function () {
 // Global Variables
 let numberChain = document.querySelector('.numberChain');
 let display = document.querySelector('.display');
-let displayValue;
+let displayValue = 0;
 let buttonDigitsArray = [];
 numberChain.innerHTML = '';
 display.innerHTML = 0;
@@ -62,18 +63,18 @@ for (let i = 0; i < buttonDigitsArray.length; i++) {
     buttonDigitsArray[i].addEventListener('click', function () {
     if (lastClickWasTotaled === true && operator == undefined) {
         number1 = undefined;
-        displayValue = undefined;
+        displayValue = 0;
         lastClickWasTotaled = false;
     };
-    if (displayValue !== undefined) {
+    if (displayValue !== 0) {
         displayValue = displayValue.toString() + i;
         display.innerHTML = displayValue;
     };
-    if (displayValue === undefined) {
+    if (displayValue === 0) {
         displayValue = i;
         display.innerHTML = displayValue;
         if (displayValue === 0) {
-            displayValue = undefined;
+            displayValue = 0;
         };
     }; 
     document.querySelector('[type="+"]').disabled = false;
@@ -179,12 +180,12 @@ computeButton.addEventListener('click', function () {
         display.innerHTML = number1;
         numberChain.innerHTML = number1;
         number2 = undefined;
-        displayValue = undefined;
+        displayValue = 0;
         lastClickWasTotaled = true;
     };
     if (number1 === undefined) {
         numberChain.innerHTML = displayValue;
-        if (displayValue === undefined) {
+        if (displayValue === 0) {
             numberChain.innerHTML = 0;
         };
     };  
@@ -203,7 +204,7 @@ computeButton.addEventListener('click', function () {
 let clearButton = document.querySelector('[type="clear"]');
 clearButton.addEventListener('click', function () {
     display.innerHTML = 0;
-    displayValue = undefined;
+    displayValue = 0;
     numberChain.innerHTML = '';
     number1 = undefined;
     number2 = undefined;
