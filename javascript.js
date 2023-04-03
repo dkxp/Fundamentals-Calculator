@@ -28,12 +28,11 @@ let onOperandPress = function () {
     if (displayValue === undefined && number1 !== undefined) {
         numberChain.innerHTML = `${number1} ${operandSymbol}`;
     }
-    if (number1 !== undefined && displayValue !== undefined && lastClickWasTotaled === false) {
+    if (number1 !== undefined && displayValue !== undefined) {
         number2 = displayValue;
         number1 = operate(number1, number2, operator);
         display.innerHTML = number1;
         displayValue = undefined;
-        // Not running when changing operand sequentially, due to displayValue being undefined
         numberChain.innerHTML = number1 + ' ' + operandSymbol;
     };
     if (number1 === undefined) {
@@ -41,6 +40,7 @@ let onOperandPress = function () {
         numberChain.innerHTML = number1;
         displayValue = undefined;
     };
+    lastClickWasTotaled = false;
 };
 
 // Global Variables
@@ -60,8 +60,9 @@ for (let i = 0; i <= 9; i++) {
 // 0-9 Buttons
 for (let i = 0; i < buttonDigitsArray.length; i++) {
     buttonDigitsArray[i].addEventListener('click', function () {
-    if (lastClickWasTotaled === true) {
+    if (lastClickWasTotaled === true && operator == undefined) {
         number1 = undefined;
+        displayValue = undefined;
         lastClickWasTotaled = false;
     };
     if (displayValue !== undefined) {
@@ -77,6 +78,7 @@ for (let i = 0; i < buttonDigitsArray.length; i++) {
     document.querySelector('[type="*"]').disabled = false;
     document.querySelector('[type="%"]').disabled = false;
 
+    console.log(lastClickWasTotaled + ' value of lastClickWasTotaled');
     console.log(number1 + ` is number 1 on button ${i} click`);
     console.log(number2 + ` is number 2 on button ${i} click`);
     console.log(displayValue + ` is displayValue on button ${i} click`);
@@ -97,6 +99,7 @@ plusButton.addEventListener('click', function () {
     document.querySelector('[type="*"]').disabled = false;
     document.querySelector('[type="%"]').disabled = false;
     
+    console.log(lastClickWasTotaled + ' value of lastClickWasTotaled');
     console.log(number1 + ` is number 1 on button + click`);
     console.log(number2 + ` is number 2 on button + click`);
     console.log(displayValue + ` is displayValue on + button click`);
@@ -116,6 +119,7 @@ subtractButton.addEventListener('click', function () {
     document.querySelector('[type="*"]').disabled = false;
     document.querySelector('[type="%"]').disabled = false;
     
+    console.log(lastClickWasTotaled + ' value of lastClickWasTotaled');
     console.log(number1 + ` is number 1 on button - click`);
     console.log(number2 + ` is number 2 on button - click`);
     console.log(displayValue + ` is displayValue on - button click`);
@@ -135,6 +139,7 @@ multiplyButton.addEventListener('click', function () {
     document.querySelector('[type="-"]').disabled = false;
     document.querySelector('[type="%"]').disabled = false;
 
+    console.log(lastClickWasTotaled + ' value of lastClickWasTotaled');
     console.log(number1 + ` is number 1 on button * click`);
     console.log(number2 + ` is number 2 on button * click`);
     console.log(displayValue + ` is displayValue on * button click`);
@@ -154,6 +159,7 @@ divideButton.addEventListener('click', function () {
     document.querySelector('[type="-"]').disabled = false;
     document.querySelector('[type="*"]').disabled = false;
 
+    console.log(lastClickWasTotaled + ' value of lastClickWasTotaled');
     console.log(number1 + ` is number 1 on button % click`);
     console.log(number2 + ` is number 2 on button % click`);
     console.log(displayValue + ` is displayValue on % button click`);
@@ -169,6 +175,7 @@ computeButton.addEventListener('click', function () {
         number1 = operate (number1, displayValue, operator);
         display.innerHTML = number1;
         numberChain.innerHTML = number1;
+        number2 = undefined;
         displayValue = undefined;
         lastClickWasTotaled = true;
     };
@@ -176,7 +183,8 @@ computeButton.addEventListener('click', function () {
         numberChain.innerHTML = displayValue;
     };  
     operator = undefined;
-    
+
+    console.log(lastClickWasTotaled + ' value of lastClickWasTotaled');
     console.log(number1 + ` is number 1 on button = click`);
     console.log(number2 + ` is number 2 on button = click`);
     console.log(displayValue + ` is displayValue on = button click`);
@@ -195,6 +203,7 @@ clearButton.addEventListener('click', function () {
     number2 = undefined;
     operator = undefined;
 
+    console.log(lastClickWasTotaled + ' value of lastClickWasTotaled');
     console.log(number1 + ` is number 1 on button = click`);
     console.log(number2 + ` is number 2 on button = click`);
     console.log(displayValue + ` is displayValue on = button click`);
