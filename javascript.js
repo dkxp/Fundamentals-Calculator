@@ -8,7 +8,14 @@ let subtract = (a, b) => a - b;
 let multiply = (a, b) => a * b;
 
 //Divide function
-let divide = (a, b) => a / b;
+let divide = function (a, b) {
+    if (b !== 0) {
+        return a / b;
+    };
+    if (b === 0) {
+        alert ("Can't Divide By Zero!");
+    };
+};
 
 // Variables to represent number, operator, number
 let number1;
@@ -21,11 +28,11 @@ let operate = function (a, b, operator) {
     if (operator !== undefined) {
         return operator (parseFloat(a, 10), parseFloat(b, 10));
     };
-};
+}
 
 // Callback Function for Operand Buttons
 let onOperandPress = function () {
-    if (displayValue === 0 && number1 !== undefined) {
+    if (displayValue === 0 && number1 !== undefined && operator !== divide) {
         numberChain.innerHTML = `${number1} ${operandSymbol}`;
     };
     if (number1 !== undefined && displayValue !== 0) {
@@ -40,6 +47,10 @@ let onOperandPress = function () {
         number1 = displayValue;
         numberChain.innerHTML = number1;
         displayValue = 0;
+    };
+    if (displayValue === 0 && operator === divide) {
+        alert ("Can't Divide By Zero!");
+        numberChain.innerHTML = '';
     };
     lastClickWasTotaled = false;
 };
@@ -188,7 +199,10 @@ computeButton.addEventListener('click', function () {
         if (displayValue === 0) {
             numberChain.innerHTML = 0;
         };
-    };  
+    };
+    if (number1 === undefined) {
+        display.innerHTML = 0;
+    };
     operator = undefined;
 
     console.log(lastClickWasTotaled + ' value of lastClickWasTotaled');
