@@ -74,42 +74,16 @@ let onOperandPress = function () {
         number1 = operate(number1, number2, operator);
         display.innerHTML = number1;
         displayValue = 0;
-        numberChain.innerHTML = number1;
+        numberChain.innerHTML = `${number1} ${operandSymbol}`;
         number2 = undefined;
         if (number1 === undefined) {
             display.innerHTML = 0;
             numberChain.innerHTML = '';
         };
     };
-
-    // Divide by zero causes this if clause to run...since it sets number1 to undefined....can we move this around?? ***** or change it?
-    
-    
-    /* if (displayValue === 0 && number1 !== undefined && operator !== divide) {
+    if (lastClickWasTotaled === true) {
         numberChain.innerHTML = `${number1} ${operandSymbol}`;
     };
-    if (number1 !== undefined && displayValue !== 0) {
-        number2 = displayValue;
-        number1 = operate(number1, number2, operator);
-        display.innerHTML = number1;
-        displayValue = 0;
-        numberChain.innerHTML = number1 + ' ' + operandSymbol;
-    };
-    if (number1 === undefined && displayValue !== undefined) {
-        number1 = displayValue;
-        numberChain.innerHTML = number1;
-        displayValue = 0;
-    }; */
-   /*  if (lastClickWasTotaled === true) {
-        number1 = displayValue;
-        lastClickWasTotaled = false;
-    }; */
-    // *** THIS NEEDS FIXING!!
-    /* if (displayValue === 0 && operator === divide) {
-        alert ("Can't Divide By Zero!");
-        numberChain.innerHTML = '';
-        displayValue.innerHTML = 0;
-    }; */
 };
 
 // Global Variables
@@ -121,7 +95,6 @@ numberChain.innerHTML = '';
 display.innerHTML = 0;
 let lastClickWasTotaled = false;
 let operandSymbol;
-
 
 for (let i = 0; i <= 9; i++) {
     buttonDigitsArray[i] = document.querySelector(`[type="${i}"]`);
@@ -148,10 +121,7 @@ for (let i = 0; i < buttonDigitsArray.length; i++) {
     lastClickWasSubtract = false;
     lastClickWasDivide = false;
     lastClickWasMultiply = false;
-
-
-    
-    
+ 
     document.querySelector('[type="+"]').disabled = false;
     document.querySelector('[type="-"]').disabled = false;
     document.querySelector('[type="*"]').disabled = false;
@@ -218,7 +188,6 @@ subtractButton.addEventListener('click', function () {
     lastClickWasDivide = false;
     lastClickWasMultiply = false;
   
-    
     console.log(lastClickWasTotaled + ' value of lastClickWasTotaled');
     console.log(number1 + ` is number 1 on button - click`);
     console.log(number2 + ` is number 2 on button - click`);
@@ -249,7 +218,6 @@ multiplyButton.addEventListener('click', function () {
     lastClickWasDivide = false;
     lastClickWasMultiply = true;
   
-
     console.log(lastClickWasTotaled + ' value of lastClickWasTotaled');
     console.log(number1 + ` is number 1 on button * click`);
     console.log(number2 + ` is number 2 on button * click`);
@@ -307,26 +275,6 @@ computeButton.addEventListener('click', function () {
         numberChain.innerHTML = '';
     };
     lastClickWasTotaled = true;
-
-    /* if (number1 !== undefined && operator !== undefined) {
-        number1 = operate (number1, displayValue, operator);
-        display.innerHTML = number1;
-        numberChain.innerHTML = number1;
-        number2 = undefined;
-        displayValue = 0;
-        lastClickWasTotaled = true;
-    };
-    if (number1 === undefined) {
-        numberChain.innerHTML = displayValue;
-        display.innerHTML = displayValue;
-        if (displayValue === 0) {
-            numberChain.innerHTML = 0;
-        };
-    }; */
-    /* if (number1 === undefined) {
-        display.innerHTML = 0;
-    }; */
-
     operator = undefined;
 
     console.log(lastClickWasTotaled + ' value of lastClickWasTotaled');
@@ -362,3 +310,9 @@ clearButton.addEventListener('click', function () {
 decimalButton.addEventListener(function () {
 
 }); */
+
+// Delete Button
+let deleteButton = document.querySelector('.delete');
+deleteButton.addEventListener('click', function () {
+
+})
