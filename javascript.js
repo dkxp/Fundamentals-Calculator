@@ -27,8 +27,29 @@ let computedTotal;
 
 // Operate function
 let operate = function (a, b, operator) {
+    let result;
     if (operator !== undefined) {
-        return operator (parseFloat(a, 10), parseFloat(b, 10));
+        result = operator (parseFloat(a, 10), parseFloat(b, 10));
+        return roundDecimals(result);
+    };
+};
+
+// Callback Function to Round Decimals
+let roundDecimals = function (numb) {
+    let integer;
+    let decimal;
+    if (Number.isInteger(numb)) {
+        return numb;
+    } else {
+        integer = numb.toString().split('.')[0];
+        decimal = numb.toString().split('.')[1];
+    };
+    if (decimal.length <= 3) {
+        return numb;
+        // subtract trailing 0s, if shown
+    };
+    if (decimal.length > 3) {
+        return integer + '.' + decimal.substring(0, 3);
     };
 };
 
