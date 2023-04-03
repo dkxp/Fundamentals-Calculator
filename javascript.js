@@ -14,6 +14,8 @@ let divide = function (a, b) {
     };
     if (b === 0) {
         alert ("Can't Divide By Zero!");
+        numberChain.innerHTML = '';
+        displayValue.innerHTML = 0;
     };
 };
 
@@ -28,7 +30,7 @@ let operate = function (a, b, operator) {
     if (operator !== undefined) {
         return operator (parseFloat(a, 10), parseFloat(b, 10));
     };
-}
+};
 
 // Callback Function for Operand Buttons
 let onOperandPress = function () {
@@ -51,6 +53,7 @@ let onOperandPress = function () {
     if (displayValue === 0 && operator === divide) {
         alert ("Can't Divide By Zero!");
         numberChain.innerHTML = '';
+        displayValue.innerHTML = 0;
     };
     lastClickWasTotaled = false;
 };
@@ -183,7 +186,7 @@ divideButton.addEventListener('click', function () {
     console.log('                         ');
 });
 
-// Compute Button
+// = Button
 let computeButton = document.querySelector('[type="="]');
 computeButton.addEventListener('click', function () {
     if (number1 !== undefined && operator !== undefined) {
@@ -196,13 +199,14 @@ computeButton.addEventListener('click', function () {
     };
     if (number1 === undefined) {
         numberChain.innerHTML = displayValue;
+        display.innerHTML = displayValue;
         if (displayValue === 0) {
             numberChain.innerHTML = 0;
         };
     };
-    if (number1 === undefined) {
+    /* if (number1 === undefined) {
         display.innerHTML = 0;
-    };
+    }; */
     operator = undefined;
 
     console.log(lastClickWasTotaled + ' value of lastClickWasTotaled');
