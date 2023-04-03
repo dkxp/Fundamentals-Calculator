@@ -39,16 +39,17 @@ let operate = function (a, b, operator) {
 let roundDecimals = function (numb) {
     let integer;
     let decimal;
+    console.log(numb + ' What is numb');
     if (Number.isInteger(numb)) {
         return numb;
     } else if (numb !== undefined) {
         integer = numb.toString().split('.')[0];
         decimal = numb.toString().split('.')[1];
     };
-    if (decimal.length <= 3) {
+    if (numb !== undefined && decimal.length <= 3) {
         return numb;
         // subtract trailing 0s, if shown
-    } else if (decimal.length > 3) {
+    } else if (numb !== undefined && decimal.length > 3) {
         return integer + '.' + decimal.substring(0, 3);
     };
 };
@@ -59,19 +60,26 @@ let onOperandPress = function () {
         displayValue = 0;
         display.innerHTML = displayValue;
     };
-    if (number1 !== undefined && number2 !== undefined) {
-        number1 = operate(number1, number2, operator);
-        display.innerHTML = number1;
-        displayValue = 0;
-        numberChain.innerHTML = number1;
-        number2 = undefined;
-    };
     if (number1 === undefined) {
         number1 = displayValue;
         display.innerHTML = number1;
         numberChain.innerHTML = number1;
         displayValue = 0;
     };
+    if (number1 !== undefined && number2 !== undefined) {
+        number1 = operate(number1, number2, operator);
+        display.innerHTML = number1;
+        displayValue = 0;
+        numberChain.innerHTML = number1;
+        number2 = undefined;
+        if (number1 === undefined) {
+            display.innerHTML = 0;
+            numberChain.innerHTML = '';
+        };
+    };
+
+    // Divide by zero causes this if clause to run...since it sets number1 to undefined....can we move this around?? ***** or change it?
+    
     
     /* if (displayValue === 0 && number1 !== undefined && operator !== divide) {
         numberChain.innerHTML = `${number1} ${operandSymbol}`;
@@ -109,6 +117,7 @@ numberChain.innerHTML = '';
 display.innerHTML = 0;
 let lastClickWasTotaled = false;
 let operandSymbol;
+let lastClickWasOperand = false;
 
 for (let i = 0; i <= 9; i++) {
     buttonDigitsArray[i] = document.querySelector(`[type="${i}"]`);
@@ -152,6 +161,7 @@ for (let i = 0; i < buttonDigitsArray.length; i++) {
 // Plus Button
 let plusButton = document.querySelector('[type="+"]');
 plusButton.addEventListener('click', function () {
+
     lastClickWasTotaled = false;
     operandSymbol = '+';
     onOperandPress();
@@ -242,6 +252,10 @@ computeButton.addEventListener('click', function () {
         display.innerHTML = displayValue;
         numberChain.innerHTML = displayValue;
         number2 = undefined;
+        if (number1 === undefined) {
+            displayValue = 0;
+            display.innerHTML = 0;
+            numberChain.innerHTML = '';}
     };
     lastClickWasTotaled = true;
 
