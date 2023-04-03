@@ -25,6 +25,10 @@ let number1;
 let number2;
 let operator;
 let computedTotal;
+let lastClickWasAdd = false;
+let lastClickWasSubtract = false;
+let lastClickWasDivide = false;
+let lastClickWasMultiply = false;
 
 // Operate function
 let operate = function (a, b, operator) {
@@ -117,7 +121,7 @@ numberChain.innerHTML = '';
 display.innerHTML = 0;
 let lastClickWasTotaled = false;
 let operandSymbol;
-let lastClickWasOperand = false;
+
 
 for (let i = 0; i <= 9; i++) {
     buttonDigitsArray[i] = document.querySelector(`[type="${i}"]`);
@@ -140,6 +144,11 @@ for (let i = 0; i < buttonDigitsArray.length; i++) {
     if (number1 !== undefined) {
         number2 = displayValue;
     };
+    lastClickWasAdd = false;
+    lastClickWasSubtract = false;
+    lastClickWasDivide = false;
+    lastClickWasMultiply = false;
+
 
     
     
@@ -161,15 +170,20 @@ for (let i = 0; i < buttonDigitsArray.length; i++) {
 // Plus Button
 let plusButton = document.querySelector('[type="+"]');
 plusButton.addEventListener('click', function () {
-
     lastClickWasTotaled = false;
     operandSymbol = '+';
-    onOperandPress();
+    if (lastClickWasDivide === false && lastClickWasSubtract == false && lastClickWasMultiply === false) {
+        onOperandPress();
+    };
     operator = add;
     document.querySelector('[type="+"]').disabled = true;
     document.querySelector('[type="-"]').disabled = false;
     document.querySelector('[type="*"]').disabled = false;
     document.querySelector('[type="%"]').disabled = false;
+    lastClickWasAdd = true;
+    lastClickWasSubtract = false;
+    lastClickWasDivide = false;
+    lastClickWasMultiply = false;
     
     console.log(lastClickWasTotaled + ' value of lastClickWasTotaled');
     console.log(number1 + ` is number 1 on button + click`);
@@ -183,14 +197,22 @@ plusButton.addEventListener('click', function () {
 // Minus Button
 let subtractButton = document.querySelector('[type="-"]');
 subtractButton.addEventListener('click', function () {
+    
     lastClickWasTotaled = false;
     operandSymbol = '-';
-    onOperandPress();
+    if (lastClickWasAdd === false && lastClickWasDivide == false && lastClickWasMultiply === false) {
+        onOperandPress();
+    };
     operator = subtract;  
     document.querySelector('[type="-"]').disabled = true;
     document.querySelector('[type="+"]').disabled = false;
     document.querySelector('[type="*"]').disabled = false;
     document.querySelector('[type="%"]').disabled = false;
+    lastClickWasAdd = false;
+    lastClickWasSubtract = true;
+    lastClickWasDivide = false;
+    lastClickWasMultiply = false;
+  
     
     console.log(lastClickWasTotaled + ' value of lastClickWasTotaled');
     console.log(number1 + ` is number 1 on button - click`);
@@ -206,12 +228,19 @@ let multiplyButton = document.querySelector('[type="*"]');
 multiplyButton.addEventListener('click', function () {
     lastClickWasTotaled = false;
     operandSymbol = '*';
-    onOperandPress();
+    if (lastClickWasAdd === false && lastClickWasSubtract == false && lastClickWasDivide === false) {
+        onOperandPress();
+    };
     operator = multiply;
     document.querySelector('[type="*"]').disabled = true;
     document.querySelector('[type="+"]').disabled = false;
     document.querySelector('[type="-"]').disabled = false;
     document.querySelector('[type="%"]').disabled = false;
+    lastClickWasAdd = false;
+    lastClickWasSubtract = false;
+    lastClickWasDivide = false;
+    lastClickWasMultiply = true;
+  
 
     console.log(lastClickWasTotaled + ' value of lastClickWasTotaled');
     console.log(number1 + ` is number 1 on button * click`);
@@ -227,12 +256,18 @@ let divideButton = document.querySelector('[type="%"]');
 divideButton.addEventListener('click', function () {
     lastClickWasTotaled = false;
     operandSymbol = '%';
-    onOperandPress();
+    if (lastClickWasAdd === false && lastClickWasSubtract == false && lastClickWasMultiply === false) {
+        onOperandPress();
+    };
     operator = divide;
     document.querySelector('[type="%"]').disabled = true;
     document.querySelector('[type="+"]').disabled = false;
     document.querySelector('[type="-"]').disabled = false;
     document.querySelector('[type="*"]').disabled = false;
+    lastClickWasAdd = false;
+    lastClickWasSubtract = false;
+    lastClickWasDivide = true;
+    lastClickWasMultiply = false;
 
     console.log(lastClickWasTotaled + ' value of lastClickWasTotaled');
     console.log(number1 + ` is number 1 on button % click`);
