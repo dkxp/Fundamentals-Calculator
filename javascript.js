@@ -176,3 +176,14 @@ computeButton.addEventListener('click', () => {
     console.log('previousOperator ' + previousOperand);
     console.log('currentOperationScreen.textContent' + currentOperationScreen.textContent);
 })
+
+// Clear Button
+clearButton = document.getElementById('clearBtn');
+clearButton.addEventListener('click', () => {
+    operand1 = undefined;
+    operand2 = undefined;
+    previousOperand = undefined;
+    screenWasReset = true;
+    currentOperationScreen.textContent = '';
+    lastOperationScreen.textContent = '';
+})
