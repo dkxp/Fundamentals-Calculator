@@ -48,7 +48,6 @@ function roundDecimals(number){
         }
     }
 }
-
 // Global Variables
 let operand1;
 let operand2;
@@ -62,7 +61,6 @@ currentOperationScreen.textContent = '';
 let operatorButtons = document.querySelectorAll('.data-operator');
 clearButtons = document.getElementById('clearBtn');
 computeButton = document.getElementById('=');
-
 // Number Button Click Callback Function
 function appendDisplay(numbr) {
     // To make number input after operand press clear previous currentOperationScreen
@@ -87,12 +85,10 @@ function appendDisplay(numbr) {
     console.log('previousOperator ' + previousOperand);
     console.log('currentOperationScreen.textContent' + currentOperationScreen.textContent);
 }
-
 // Number Button Click Event Listener
 numberButtons = document.querySelectorAll('.data-number');
 numberButtons.forEach((button) => 
     button.addEventListener('click', () => appendDisplay(button.textContent)));
-
 // Operand Press Callback Function
 function onOperandPress(operandBtn){
     console.log('                ');
@@ -102,8 +98,7 @@ function onOperandPress(operandBtn){
     console.log('operand1 ' + operand1);
     console.log('operand2 ' + operand2);
     console.log('previousOperator ' + previousOperand);
-    console.log('currentOperationScreen.textContent' + currentOperationScreen.textContent);
-    
+    console.log('currentOperationScreen.textContent' + currentOperationScreen.textContent);   
     // If previous click was operand and you press an operand again, to change operand, but without performing computation
     if (screenWasReset === true && currentOperationScreen.textContent !== '' && operand1 !== undefined){
         previousOperand = operandBtn;
@@ -158,7 +153,6 @@ function onOperandPress(operandBtn){
 }
 // On Operand Click Eventlistener
 operatorButtons.forEach((button) => button.addEventListener('click', () => onOperandPress(button.textContent)));
-
 // = Button
 computeButton = document.querySelector('.compute-operator');
 computeButton.addEventListener('click', () => {
@@ -179,7 +173,6 @@ computeButton.addEventListener('click', () => {
     /* if(operand1 !== undefined){
         lastOperationScreen.textContent = `${operand1} ${previousOperand} = ${operand1}`;
     } */
-
     console.log('                  ');
     console.log('= Press');
     console.log('ScreenWasReset ' + screenWasReset);
@@ -188,7 +181,6 @@ computeButton.addEventListener('click', () => {
     console.log('previousOperator ' + previousOperand);
     console.log('currentOperationScreen.textContent' + currentOperationScreen.textContent);
 })
-
 // Clear Button
 clearButton = document.getElementById('clearBtn');
 clearButton.addEventListener('click', () => {
@@ -198,4 +190,25 @@ clearButton.addEventListener('click', () => {
     screenWasReset = true;
     currentOperationScreen.textContent = '';
     lastOperationScreen.textContent = '';
+})
+// Decimal Button
+decimalButton = document.getElementById('.');
+decimalButton.addEventListener('click', () => {
+    if(currentOperationScreen.textContent.includes('.')){
+        return;
+    }
+    currentOperationScreen.textContent += '.';
+})
+// Add Delete Button
+deleteButton = document.getElementById('deleteBtn');
+deleteButton.addEventListener('click', () => {
+    if(currentOperationScreen.textContent.length === 1){
+        currentOperationScreen.textContent = '';
+        return;
+    }
+    if(currentOperationScreen === ''){
+        return;
+    }
+    let length = currentOperationScreen.textContent.length - 1;
+    currentOperationScreen.textContent = currentOperationScreen.textContent.substring(0, length);
 })
