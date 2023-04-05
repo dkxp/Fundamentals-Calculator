@@ -17,6 +17,7 @@
     width: 390px;
     height: 120px;
     flex-direction: column;
+    flex-wrap:nowrap;
 }
 
 #lastOperationScreen {
@@ -33,6 +34,7 @@
     align-items: center;
     padding-right: 5px;
     border-width: 2px;
+    text-align: right;
 }
 
 #currentOperationScreen {
@@ -47,7 +49,7 @@
     font-size: 50px;
     padding-right: 5px;
     border-width: 2px;
-    word-wrap:break-word;
+    
 }
 
 .clearDeleteBtns {

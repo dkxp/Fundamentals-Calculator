@@ -159,7 +159,7 @@ function onOperandPress(operandBtn){
 // On Operand Click Eventlistener
 operatorButtons.forEach((button) => button.addEventListener('click', () => onOperandPress(button.textContent)));
 // = Callback
-function onComputePress(){
+/* function onComputePress(){
     if(operand1 === undefined || previousOperand === undefined || screenWasReset === true){
         return;
     }
@@ -174,11 +174,24 @@ function onComputePress(){
     operand2 = undefined;
     previousOperand = undefined;
     screenWasReset = true;
-}
+} */
 // = Button
 computeButton = document.querySelector('.compute-operator');
 computeButton.addEventListener('click', () => {
-    onComputePress();
+    if(operand1 === undefined || previousOperand === undefined || screenWasReset === true){
+        return;
+    }
+    operand2 = currentOperationScreen.textContent;
+    operator = previousOperand;
+    lastOperationScreen.textContent = `${operand1} ${previousOperand} ${operand2} = `
+    operand1 = operate(operand1, operand2, operator);
+    roundDecimals(operand1);
+    lastOperationScreen.textContent += operand1;
+    currentOperationScreen.textContent = operand1;
+    operand1 = undefined;
+    operand2 = undefined;
+    previousOperand = undefined;
+    screenWasReset = true;
     /* if(operand1 !== undefined){
         lastOperationScreen.textContent = `${operand1} ${previousOperand} = ${operand1}`;
     } */
@@ -199,6 +212,13 @@ clearButton.addEventListener('click', () => {
     screenWasReset = true;
     currentOperationScreen.textContent = '';
     lastOperationScreen.textContent = '';
+    console.log('                  ');
+    console.log('Clear Press');
+    console.log('ScreenWasReset ' + screenWasReset);
+    console.log('operand1 ' + operand1);
+    console.log('operand2 ' + operand2);
+    console.log('previousOperator ' + previousOperand);
+    console.log('currentOperationScreen.textContent' + currentOperationScreen.textContent);
 })
 // Decimal Button
 decimalButton = document.getElementById('.');
@@ -227,7 +247,7 @@ deleteButton.addEventListener('click', () => {
 //Number Keypad Press
 document.addEventListener('keydown', (event) => {
     if(event.key >= 0 && event.key <= 9){
-        appendDisplay(event.key)
+        appendDisplay(event.key);
             }
         }
     );
@@ -240,7 +260,28 @@ document.addEventListener('keydown', (event) => {
 // = Keypad Press
 document.addEventListener('keydown', (event) => {
     if(event.key === 'Enter'){
-        onComputePress();
+        if(operand1 === undefined || previousOperand === undefined || screenWasReset === true){
+            return;
+        }
+        operand2 = currentOperationScreen.textContent;
+        operator = previousOperand;
+        lastOperationScreen.textContent = `${operand1} ${previousOperand} ${operand2} = `
+        operand1 = operate(operand1, operand2, operator);
+        roundDecimals(operand1);
+        lastOperationScreen.textContent += operand1;
+        currentOperationScreen.textContent = operand1;
+        operand1 = undefined;
+        operand2 = undefined;
+        previousOperand = undefined;
+        screenWasReset = true;
+
+        console.log('                  ');
+        console.log('= Press');
+        console.log('ScreenWasReset ' + screenWasReset);
+        console.log('operand1 ' + operand1);
+        console.log('operand2 ' + operand2);
+        console.log('previousOperator ' + previousOperand);
+        console.log('currentOperationScreen.textContent' + currentOperationScreen.textContent);
     }
 })
 // Backspace Keypad Press
