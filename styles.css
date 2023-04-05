@@ -3,7 +3,7 @@
     align-items: center;
     flex-direction: column;
     width: 400px;
-    height: 515px;
+    height: 513px;
     padding: 20px;
     background-color: rgb(187, 182, 182);
     gap: 15px;
@@ -15,14 +15,14 @@
 .screen {
     display: flex;
     width: 390px;
-    height: 90px;
+    height: 120px;
     flex-direction: column;
 }
 
 #lastOperationScreen {
     display:flex;
     width: 380px;
-    height: 80px;
+    height: 90px;
     flex-direction: row-reverse;
     font-size: 25px;
     background-color: white;
@@ -32,14 +32,14 @@
 }
 
 #currentOperationScreen {
-    justify-content: center;
     display:flex;
     width: 380px;
-    height: 120px;
+    height: 140px;
     border-color: black;
     border-style: solid;
-    flex-direction: column;
+    flex-direction: row-reverse;
     background-color: white;
+    font-size: 50px;
 }
 
 .clearDeleteBtns {

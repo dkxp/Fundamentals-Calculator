@@ -38,6 +38,16 @@ function operate(a, b, operator) {
     }
     return operator(parseFloat(a), parseFloat(b));
 }
+// Round decimal function
+function roundDecimals(number){
+    console.log(typeof number);
+    if(number.toString().includes('.')){
+        let decimalOperand = number.toString().split('.');
+        if(decimalOperand[1].length > 3){
+            operand1 = Math.round(number * 100) / 100;
+        }
+    }
+}
 
 // Global Variables
 let operand1;
@@ -77,13 +87,13 @@ function appendDisplay(numbr) {
     console.log('previousOperator ' + previousOperand);
     console.log('currentOperationScreen.textContent' + currentOperationScreen.textContent);
 }
+
 // Number Button Click Event Listener
 numberButtons = document.querySelectorAll('.data-number');
 numberButtons.forEach((button) => 
     button.addEventListener('click', () => appendDisplay(button.textContent)));
 
 // Operand Press Callback Function
-
 function onOperandPress(operandBtn){
     console.log('                ');
     console.log(`${operandBtn.textContent}         `);
@@ -114,6 +124,7 @@ function onOperandPress(operandBtn){
         operand2 = currentOperationScreen.textContent;
         operator = previousOperand;
         operand1 = operate(operand1, operand2, operator);
+        roundDecimals(operand1);
         currentOperationScreen.textContent = operand1;
         previousOperand = operandBtn;
         if(operand1 !== undefined){
@@ -158,6 +169,7 @@ computeButton.addEventListener('click', () => {
     operator = previousOperand;
     lastOperationScreen.textContent = `${operand1} ${previousOperand} ${operand2} = `
     operand1 = operate(operand1, operand2, operator);
+    roundDecimals(operand1);
     lastOperationScreen.textContent += operand1;
     currentOperationScreen.textContent = operand1;
     operand1 = undefined;
