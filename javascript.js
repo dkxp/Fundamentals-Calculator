@@ -1,318 +1,139 @@
-//Add function
-let add = (a, b) => a + b;
-
-//Subtract function
-let subtract = (a, b) => a - b;
-
-//Multiply function
-let multiply = (a, b) => a * b;
-
-//Divide function
-let divide = function (a, b) {
-    if (b !== 0) {
-        return a / b;
-    };
-    if (b === 0) {
-        alert ("Can't Divide By Zero!");
-        numberChain.innerHTML = '';
-        displayValue.innerHTML = 0;
-        number1 = 0;
-    };
-};
-
-// Variables to represent number, operator, number
-let number1;
-let number2;
-let operator;
-let computedTotal;
-let lastClickWasAdd = false;
-let lastClickWasSubtract = false;
-let lastClickWasDivide = false;
-let lastClickWasMultiply = false;
-
-// Operate function
-let operate = function (a, b, operator) {
-    let result;
-    if (operator !== undefined) {
-        result = operator (parseFloat(a, 10), parseFloat(b, 10));
-        return roundDecimals(result);
-    };
-};
-
-// Callback Function to Round Decimals
-let roundDecimals = function (numb) {
-    let integer;
-    let decimal;
-    console.log(numb + ' What is numb');
-    if (Number.isInteger(numb)) {
-        return numb;
-    } else if (numb !== undefined) {
-        integer = numb.toString().split('.')[0];
-        decimal = numb.toString().split('.')[1];
-    };
-    if (numb !== undefined && decimal.length <= 3) {
-        return numb;
-        // subtract trailing 0s, if shown
-    } else if (numb !== undefined && decimal.length > 3) {
-        return integer + '.' + decimal.substring(0, 3);
-    };
-};
-
-// Callback Function for Operand Buttons
-let onOperandPress = function () {
-    if (number1 !== undefined && number2 === undefined && lastClickWasTotaled === false) {
-        displayValue = 0;
-        display.innerHTML = displayValue;
-    };
-    if (number1 === undefined) {
-        number1 = displayValue;
-        display.innerHTML = number1;
-        numberChain.innerHTML = number1;
-        displayValue = 0;
-    };
-    if (number1 !== undefined && number2 !== undefined) {
-        number1 = operate(number1, number2, operator);
-        display.innerHTML = number1;
-        displayValue = 0;
-        numberChain.innerHTML = `${number1} ${operandSymbol}`;
-        number2 = undefined;
-        if (number1 === undefined) {
-            display.innerHTML = 0;
-            numberChain.innerHTML = '';
-        };
-    };
-    if (lastClickWasTotaled === true) {
-        numberChain.innerHTML = `${number1} ${operandSymbol}`;
-    };
-};
+// Operand and Operate Functions
+function add(a, b) {
+    return a + b;
+}
+function subtract(a, b) {
+    return a - b;
+}
+function divide(a, b) {
+    if (b === 0){
+        alert("Can't divide by zero!");
+        return;
+    }
+    return a / b;
+}
+function multiply(a, b) {
+    return a * b;
+}
+function operate(a, b, operator) {
+    switch (operator){
+        case '+':
+            operator = add;
+            break;
+        case '-':
+            operator = subtract;
+            break;
+        case '%':
+            operator = divide;
+            break;
+        case '*':
+            operator = multiply;
+            break;
+    }
+    return operator(parseFloat(a), parseFloat(b));
+}
 
 // Global Variables
-let numberChain = document.querySelector('.numberChain');
-let display = document.querySelector('.display');
-let displayValue = 0;
-let buttonDigitsArray = [];
-numberChain.innerHTML = '';
-display.innerHTML = 0;
-let lastClickWasTotaled = false;
-let operandSymbol;
+let operand1;
+let operand2;
+let operator;
+let previousOperand;
+let screenWasReset = true;
+let lastOperationScreen = document.getElementById('lastOperationScreen');
+lastOperationScreen.textContent = '';
+let currentOperationScreen = document.getElementById('currentOperationScreen');
+currentOperationScreen.textContent = '';
+let operatorButtons = document.querySelectorAll('.data-operator');
+clearButtons = document.getElementById('clearBtn');
+computeButton = document.getElementById('=');
 
-for (let i = 0; i <= 9; i++) {
-    buttonDigitsArray[i] = document.querySelector(`[type="${i}"]`);
-};
+// Number Button Click Callback Function
+function appendDisplay(numbr) {
+    if (screenWasReset === true){
+        currentOperationScreen.textContent = '';
+        currentOperationScreen.textContent += numbr;
+        currentOperationScreen.textContent = parseFloat(currentOperationScreen.textContent);
+        screenWasReset = false;
+        return;
+    }
+    currentOperationScreen.textContent += numbr;
+    currentOperationScreen.textContent = parseFloat(currentOperationScreen.textContent);
+    screenWasReset = false;
 
-// 0-9 Buttons
-for (let i = 0; i < buttonDigitsArray.length; i++) {
-    buttonDigitsArray[i].addEventListener('click', function () {
+    console.log('                  ');
+    console.log(`Number ${numbr} press `);
+    console.log('ScreenWasReset ' + screenWasReset);
+    console.log('operand1 ' + operand1);
+    console.log('operand2 ' + operand2);
+    console.log('previousOperator ' + previousOperand);
+    console.log('currentOperationScreen.textContent' + currentOperationScreen.textContent);
+}
+// Number Button Click Event Listener
+numberButtons = document.querySelectorAll('.data-number');
+numberButtons.forEach((button) => 
+    button.addEventListener('click', () => appendDisplay(button.textContent)));
 
-    if (lastClickWasTotaled === true) {
-        displayValue = 0;
-        number1 = undefined;
-        number2 = undefined;
-        lastClickWasTotaled = false;
-    };
-    displayValue = displayValue.toString() + i;
-    displayValue = parseInt(displayValue, 10);
-    display.innerHTML = displayValue;
+// Operand Press Callback Function
 
-    if (number1 !== undefined) {
-        number2 = displayValue;
-    };
-    lastClickWasAdd = false;
-    lastClickWasSubtract = false;
-    lastClickWasDivide = false;
-    lastClickWasMultiply = false;
- 
-    document.querySelector('[type="+"]').disabled = false;
-    document.querySelector('[type="-"]').disabled = false;
-    document.querySelector('[type="*"]').disabled = false;
-    document.querySelector('[type="%"]').disabled = false;
-
-    console.log(lastClickWasTotaled + ' value of lastClickWasTotaled');
-    console.log(number1 + ` is number 1 on button ${i} click`);
-    console.log(number2 + ` is number 2 on button ${i} click`);
-    console.log(displayValue + ` is displayValue on button ${i} click`);
-    console.log(display.innerHTML + ` is display.innerHTML on ${i} button click`);
-    console.log(operator + ` is operator`);
-    console.log('                         ');
-    });
-};
-
-// Plus Button
-let plusButton = document.querySelector('[type="+"]');
-plusButton.addEventListener('click', function () {
-    operandSymbol = '+';
-    if (lastClickWasDivide === false && lastClickWasSubtract == false && lastClickWasMultiply === false) {
-        onOperandPress();
-    };
-    if (lastClickWasTotaled === true) {
-        displayValue = 0;
-    };
-    lastClickWasTotaled = false;
-    operator = add;
-    document.querySelector('[type="+"]').disabled = true;
-    document.querySelector('[type="-"]').disabled = false;
-    document.querySelector('[type="*"]').disabled = false;
-    document.querySelector('[type="%"]').disabled = false;
-    lastClickWasAdd = true;
-    lastClickWasSubtract = false;
-    lastClickWasDivide = false;
-    lastClickWasMultiply = false;
+function onOperandPress(operandBtn){
+    console.log('                  ');
+    console.log('Initial Values on Operand Press');
+    console.log('ScreenWasReset ' + screenWasReset);
+    console.log('operand1 ' + operand1);
+    console.log('operand2 ' + operand2);
+    console.log('previousOperator ' + previousOperand);
+    console.log('currentOperationScreen.textContent' + currentOperationScreen.textContent);
     
-    console.log(lastClickWasTotaled + ' value of lastClickWasTotaled');
-    console.log(number1 + ` is number 1 on button + click`);
-    console.log(number2 + ` is number 2 on button + click`);
-    console.log(displayValue + ` is displayValue on + button click`);
-    console.log(display.innerHTML + ` is display.innerHTML on + button click`);
-    console.log(operator + ` is operator`);
-    console.log('                         ');
-});
+    // If previous click was operand and you press an operand again, to change operand, but without performing computation
+    if (screenWasReset === true && currentOperationScreen.textContent !== ''){
+        previousOperand = operandBtn;
+        lastOperationScreen.textContent = `${operand1} ${previousOperand}`;
 
-// Minus Button
-let subtractButton = document.querySelector('[type="-"]');
-subtractButton.addEventListener('click', function () {
-    operandSymbol = '-';
-    if (lastClickWasAdd === false && lastClickWasDivide == false && lastClickWasMultiply === false) {
-        onOperandPress();
-    };
-    if (lastClickWasTotaled === true) {
-        displayValue = 0;
-    };
-    lastClickWasTotaled = false;
-    operator = subtract;  
-    document.querySelector('[type="-"]').disabled = true;
-    document.querySelector('[type="+"]').disabled = false;
-    document.querySelector('[type="*"]').disabled = false;
-    document.querySelector('[type="%"]').disabled = false;
-    lastClickWasAdd = false;
-    lastClickWasSubtract = true;
-    lastClickWasDivide = false;
-    lastClickWasMultiply = false;
-  
-    console.log(lastClickWasTotaled + ' value of lastClickWasTotaled');
-    console.log(number1 + ` is number 1 on button - click`);
-    console.log(number2 + ` is number 2 on button - click`);
-    console.log(displayValue + ` is displayValue on - button click`);
-    console.log(display.innerHTML + ` is display.innerHTML on - button click`);
-    console.log(operator + ` is operator`);
-    console.log('                         ');
-});
+        console.log('                  ');
+        console.log('First If Clause in OperandPress');
+        console.log('ScreenWasReset ' + screenWasReset);
+        console.log('operand1 ' + operand1);
+        console.log('operand2 ' + operand2);
+        console.log('previousOperator ' + previousOperand);
+        console.log('currentOperationScreen.textContent' + currentOperationScreen.textContent);
+        return;
+        
+    }
+    // If operand1 exists and there is a new (not the same operand1 showing after operand click) number, as operand2
+    // This runs Operate and gives new operand1
+    if (operand1 !== undefined && screenWasReset === false && previousOperand !== undefined){
+        operand2 = currentOperationScreen.textContent;
+        operator = previousOperand;
+        operand1 = operate(operand1, operand2, operator);
+        currentOperationScreen.textContent = operand1;
+        previousOperand = operandBtn;
+        lastOperationScreen.textContent = `${operand1} ${previousOperand}`;
+        screenWasReset = true;
 
-// Multiply Button
-let multiplyButton = document.querySelector('[type="*"]');
-multiplyButton.addEventListener('click', function () {
-    operandSymbol = '*';
-    if (lastClickWasAdd === false && lastClickWasSubtract == false && lastClickWasDivide === false) {
-        onOperandPress();
-    };
-    if (lastClickWasTotaled === true) {
-        displayValue = 0;
-    };
-    lastClickWasTotaled = false;
-    operator = multiply;
-    document.querySelector('[type="*"]').disabled = true;
-    document.querySelector('[type="+"]').disabled = false;
-    document.querySelector('[type="-"]').disabled = false;
-    document.querySelector('[type="%"]').disabled = false;
-    lastClickWasAdd = false;
-    lastClickWasSubtract = false;
-    lastClickWasDivide = false;
-    lastClickWasMultiply = true;
-  
-    console.log(lastClickWasTotaled + ' value of lastClickWasTotaled');
-    console.log(number1 + ` is number 1 on button * click`);
-    console.log(number2 + ` is number 2 on button * click`);
-    console.log(displayValue + ` is displayValue on * button click`);
-    console.log(display.innerHTML + ` is display.innerHTML on * button click`);
-    console.log(operator + ` is operator`);
-    console.log('                         ');
-});
+        console.log('                  ');
+        console.log('Second If Clause in OperandPress');
+        console.log('ScreenWasReset ' + screenWasReset);
+        console.log('operand1 ' + operand1);
+        console.log('operand2 ' + operand2);
+        console.log('previousOperator ' + previousOperand);
+        console.log('currentOperationScreen.textContent' + currentOperationScreen.textContent);
+    }
+    // If operand1 doesn't exist (should only be on start and on =)
+    if (operand1 === undefined && currentOperationScreen.textContent !== ''){
+        operand1 = currentOperationScreen.textContent;
+        previousOperand = operandBtn;
+        lastOperationScreen.textContent = operand1;
+        screenWasReset = true;
 
-// Divide Button
-let divideButton = document.querySelector('[type="%"]');
-divideButton.addEventListener('click', function () {
-    operandSymbol = '%';
-    if (lastClickWasAdd === false && lastClickWasSubtract == false && lastClickWasMultiply === false) {
-        onOperandPress();
-    };
-    if (lastClickWasTotaled === true) {
-        displayValue = 0;
-    };
-    lastClickWasTotaled = false;
-    operator = divide;
-    document.querySelector('[type="%"]').disabled = true;
-    document.querySelector('[type="+"]').disabled = false;
-    document.querySelector('[type="-"]').disabled = false;
-    document.querySelector('[type="*"]').disabled = false;
-    lastClickWasAdd = false;
-    lastClickWasSubtract = false;
-    lastClickWasDivide = true;
-    lastClickWasMultiply = false;
+        console.log('                  ');
+        console.log('Third If Clause in OperandPress');
+        console.log('ScreenWasReset ' + screenWasReset);
+        console.log('operand1 ' + operand1);
+        console.log('operand2 ' + operand2);
+        console.log('previousOperator ' + previousOperand);
+        console.log('currentOperationScreen.textContent' + currentOperationScreen.textContent);
+    }
+}
+// On Operand Click Eventlistener
+operatorButtons.forEach((button) => button.addEventListener('click', () => onOperandPress(button.textContent)));
 
-    console.log(lastClickWasTotaled + ' value of lastClickWasTotaled');
-    console.log(number1 + ` is number 1 on button % click`);
-    console.log(number2 + ` is number 2 on button % click`);
-    console.log(displayValue + ` is displayValue on % button click`);
-    console.log(display.innerHTML + ` is display.innerHTML on % button click`);
-    console.log(operator + ` is operator`);
-    console.log('                         ');
-});
-
-// = Button
-let computeButton = document.querySelector('[type="="]');
-computeButton.addEventListener('click', function () {
-    if (number1 !== undefined && number2 !== undefined) {
-        number1 = operate (number1, number2, operator);
-        displayValue = number1;
-        display.innerHTML = displayValue;
-        numberChain.innerHTML = displayValue;
-        number2 = undefined;
-        if (number1 === undefined) {
-            displayValue = 0;
-            display.innerHTML = 0;
-            numberChain.innerHTML = '';}
-    };
-    if (number1 === undefined && number2 === undefined) {
-        numberChain.innerHTML = '';
-    };
-    lastClickWasTotaled = true;
-    operator = undefined;
-
-    console.log(lastClickWasTotaled + ' value of lastClickWasTotaled');
-    console.log(number1 + ` is number 1 on button = click`);
-    console.log(number2 + ` is number 2 on button = click`);
-    console.log(displayValue + ` is displayValue on = button click`);
-    console.log(display.innerHTML + ` is display.innerHTML on = button click`);
-    console.log(operator + ` is operator`);
-    console.log('                         ');
-});
-
-// Clear button
-let clearButton = document.querySelector('[type="clear"]');
-clearButton.addEventListener('click', function () {
-    display.innerHTML = 0;
-    displayValue = 0;
-    numberChain.innerHTML = '';
-    number1 = undefined;
-    number2 = undefined;
-    operator = undefined;
-
-    console.log(lastClickWasTotaled + ' value of lastClickWasTotaled');
-    console.log(number1 + ` is number 1 on button = click`);
-    console.log(number2 + ` is number 2 on button = click`);
-    console.log(displayValue + ` is displayValue on = button click`);
-    console.log(display.innerHTML + ` is display.innerHTML on = button click`);
-    console.log(operator + ` is operator`);
-    console.log('                         ');
-});
-
-// Decimal Button
-/* let decimalButton = document.querySelector('[type="."]');
-decimalButton.addEventListener(function () {
-
-}); */
-
-// Delete Button
-let deleteButton = document.querySelector('.delete');
-deleteButton.addEventListener('click', function () {
-
-})

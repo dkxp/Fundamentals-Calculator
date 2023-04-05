@@ -12,7 +12,26 @@
     border-color: black;
 }
 
-.displayContainer {
+.screen {
+    display: flex;
+    width: 390px;
+    height: 90px;
+    flex-direction: column;
+}
+
+#lastOperationScreen {
+    display:flex;
+    width: 380px;
+    height: 80px;
+    flex-direction: row-reverse;
+    font-size: 25px;
+    background-color: white;
+    border-color: black;
+    border-style: solid;
+    border-bottom: none;
+}
+
+#currentOperationScreen {
     justify-content: center;
     display:flex;
     width: 380px;
@@ -23,55 +42,46 @@
     background-color: white;
 }
 
-.numberChain {
+.clearDeleteBtns {
     display:flex;
-    width: 365px;
-    height: 32px;
-    flex-direction: row-reverse;
-    font-size: 25px;
-
-}
-
-.display {
-    display: flex;
-    width: 365px;
-    height: 64px;
-    flex-direction: row-reverse;
-    font-size: 50px;
-}
-
-.cleardeleteButtons {
-    display: flex;
-    justify-content: space-evenly;
-    width: 386px;
+    width: 390px;
     height: 60px;
     justify-content: space-between;
 }
 
-.clear {
+#clearBtn {
     background-color: rgb(210, 174, 174);
-    width: 185px;
+    width: 180px;
     font-size: 22px;
     border-style: solid;
     border-color: black;
 }
 
-.delete {
+#deleteBtn {
     background-color:rgb(168, 168, 222);
-    width: 185px;
+    width: 180px;
     font-size: 22px;
     border-style: solid;
     border-color: black;
 }
 
-.digitcontainer {
+.keypad {
     display: flex;
     width: 386px;
     height: 60px;
     justify-content: space-between;
 }
 
-.input {
+.data-number {
+    width: 85px;
+    height: 68px;
+    font-size: 23px;
+    background-color: white;
+    border-style: solid;
+    border-color: black;
+}
+
+.data-operator {
     width: 85px;
     height: 68px;
     font-size: 23px;
