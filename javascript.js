@@ -203,7 +203,6 @@ decimalButton.addEventListener('click', () => {
     if(currentOperationScreen.textContent === '0.'){
         currentOperationScreen.textContent = '.';
     }
-    
 })
 // Add Delete Button
 deleteButton = document.getElementById('deleteBtn');
@@ -219,11 +218,11 @@ deleteButton.addEventListener('click', () => {
     currentOperationScreen.textContent = currentOperationScreen.textContent.substring(0, length);
 })
 //Keypad Press
-/* numberButtons.forEach((button) => 
-    button.addEventListener('keydown', (event) => 
+document.addEventListener('keydown', (event) => {
+    if(event.keyCode >= 96 && event.keyCode <= 105){
+        appendDisplay(event.key)
+            }
+        }
+    );
 
-))
-
-function onKeypadPress(key){
     
-} */
