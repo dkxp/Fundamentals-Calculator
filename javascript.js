@@ -156,7 +156,9 @@ computeButton.addEventListener('click', () => {
     }
     operand2 = currentOperationScreen.textContent;
     operator = previousOperand;
+    lastOperationScreen.textContent = `${operand1} ${previousOperand} ${operand2} = `
     operand1 = operate(operand1, operand2, operator);
+    lastOperationScreen.textContent += operand1;
     currentOperationScreen.textContent = operand1;
     operand1 = undefined;
     operand2 = undefined;
