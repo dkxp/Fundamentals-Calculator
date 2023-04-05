@@ -8,6 +8,12 @@ function subtract(a, b) {
 function divide(a, b) {
     if (b === 0){
         alert("Can't divide by zero!");
+        operand1 = undefined;
+        operand2 = undefined;
+        previousOperand = undefined;
+        screenWasReset = true;
+        lastOperationScreen.textContent = '';
+        currentOperationScreen.textContent = '';
         return;
     }
     return a / b;
@@ -97,7 +103,6 @@ function onOperandPress(operandBtn){
         console.log('previousOperator ' + previousOperand);
         console.log('currentOperationScreen.textContent' + currentOperationScreen.textContent);
         return;
-        
     }
     // If operand1 exists and there is a new (not the same operand1 showing after operand click) number, as operand2
     // This runs Operate and gives new operand1
@@ -107,7 +112,9 @@ function onOperandPress(operandBtn){
         operand1 = operate(operand1, operand2, operator);
         currentOperationScreen.textContent = operand1;
         previousOperand = operandBtn;
-        lastOperationScreen.textContent = `${operand1} ${previousOperand}`;
+        if(operand1 !== undefined){
+            lastOperationScreen.textContent = `${operand1} ${previousOperand}`;
+        }
         screenWasReset = true;
 
         console.log('                  ');
