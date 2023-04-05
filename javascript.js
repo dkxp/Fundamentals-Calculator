@@ -74,7 +74,9 @@ function appendDisplay(numbr) {
         return;
     }
     currentOperationScreen.textContent += numbr;
-    currentOperationScreen.textContent = parseFloat(currentOperationScreen.textContent);
+    if(currentOperationScreen.textContent.includes('.') === false){
+        currentOperationScreen.textContent = parseFloat(currentOperationScreen.textContent);
+    };
     screenWasReset = false;
 
     console.log('                  ');
@@ -198,6 +200,10 @@ decimalButton.addEventListener('click', () => {
         return;
     }
     currentOperationScreen.textContent += '.';
+    if(currentOperationScreen.textContent === '0.'){
+        currentOperationScreen.textContent = '.';
+    }
+    
 })
 // Add Delete Button
 deleteButton = document.getElementById('deleteBtn');
@@ -212,3 +218,12 @@ deleteButton.addEventListener('click', () => {
     let length = currentOperationScreen.textContent.length - 1;
     currentOperationScreen.textContent = currentOperationScreen.textContent.substring(0, length);
 })
+//Keypad Press
+/* numberButtons.forEach((button) => 
+    button.addEventListener('keydown', (event) => 
+
+))
+
+function onKeypadPress(key){
+    
+} */
