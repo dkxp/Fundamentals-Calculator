@@ -35,6 +35,9 @@ function operate(a, b, operator) {
         case '*':
             operator = multiply;
             break;
+        case '/':
+            operator = divide;
+            break;
     }
     return operator(parseFloat(a), parseFloat(b));
 }
@@ -155,9 +158,8 @@ function onOperandPress(operandBtn){
 }
 // On Operand Click Eventlistener
 operatorButtons.forEach((button) => button.addEventListener('click', () => onOperandPress(button.textContent)));
-// = Button
-computeButton = document.querySelector('.compute-operator');
-computeButton.addEventListener('click', () => {
+// = Callback
+function onComputePress(){
     if(operand1 === undefined || previousOperand === undefined || screenWasReset === true){
         return;
     }
@@ -172,6 +174,11 @@ computeButton.addEventListener('click', () => {
     operand2 = undefined;
     previousOperand = undefined;
     screenWasReset = true;
+}
+// = Button
+computeButton = document.querySelector('.compute-operator');
+computeButton.addEventListener('click', () => {
+    onComputePress();
     /* if(operand1 !== undefined){
         lastOperationScreen.textContent = `${operand1} ${previousOperand} = ${operand1}`;
     } */
@@ -217,12 +224,48 @@ deleteButton.addEventListener('click', () => {
     let length = currentOperationScreen.textContent.length - 1;
     currentOperationScreen.textContent = currentOperationScreen.textContent.substring(0, length);
 })
-//Keypad Press
+//Number Keypad Press
 document.addEventListener('keydown', (event) => {
-    if(event.keyCode >= 96 && event.keyCode <= 105){
+    if(event.key >= 0 && event.key <= 9){
         appendDisplay(event.key)
             }
         }
     );
-
-    
+//Operand Keypad Press
+document.addEventListener('keydown', (event) => {
+    if(event.key === '*' || event.key === '/' || event.key === '+' || event.key === '-'){
+        onOperandPress(event.key);
+    }
+})
+// = Keypad Press
+document.addEventListener('keydown', (event) => {
+    if(event.key === 'Enter'){
+        onComputePress();
+    }
+})
+// Backspace Keypad Press
+document.addEventListener('keydown', (event) => {
+    if(event.key === 'Backspace'){
+        if(currentOperationScreen.textContent.length === 1){
+            currentOperationScreen.textContent = '';
+            return;
+        }
+        if(currentOperationScreen === ''){
+            return;
+        }
+        let length = currentOperationScreen.textContent.length - 1;
+        currentOperationScreen.textContent = currentOperationScreen.textContent.substring(0, length);
+    }
+})
+// Decimal Keypad Press
+document.addEventListener('keydown', (event) => {
+    if(event.key === '.'){
+       if(currentOperationScreen.textContent.includes('.')){
+        return;
+    }
+    currentOperationScreen.textContent += '.';
+    if(currentOperationScreen.textContent === '0.'){
+        currentOperationScreen.textContent = '.';
+    } 
+    }
+})
